@@ -1,0 +1,121 @@
+@mixin flexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-sigh-up-wrapper {
+    z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(0, 0, 0, .5);
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition: .3s all;
+
+    &.active {
+        opacity: 1;
+        pointer-events: all;
+        visibility: visible;
+    }
+}
+
+.modal-sign-up-content {
+    width: 366px;
+    padding: 15px;
+    background: white;
+
+    & form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 15px;
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+
+        .input-block {
+            width: 100%;
+            margin-top: 15px;
+            height: 70px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+
+            input {
+                border: 1px solid rgba(0, 0, 0, 0.3);
+                width: 100%;
+                height: 40px;
+                padding: 0 15px;
+                font-size: 18px;
+                outline: none;
+                color: black;
+                font-weight: 500;
+                font-family: Regular-font;
+            }
+
+            input[type="password"] {
+                letter-spacing: 10px;
+            }
+
+            p {
+                color: black;
+                font-size: 20px;
+                text-transform: uppercase;
+                text-align: left;
+                width: 100%;
+            }
+        }
+
+        .button-redirect-to-signIn {
+            color: black;
+            transition: 0.3s all;
+            font-size: 20px;
+            background: transparent;
+            border: none;
+            margin: 30px 0 20px 0;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: Regular-font;
+        }
+
+        .button-to-signUp {
+            transition: 0.3s all;
+            cursor: pointer;
+            margin-top: 30px;
+            align-items: center;
+            background: black;
+            color: #fff;
+            display: flex;
+            font-size: 20px;
+            justify-content: center;
+            text-transform: uppercase;
+            border: none;
+            width: 100%;
+            height: 45px;
+            font-family: Regular-font;
+
+            &:hover{
+                background-color: #5c5c5c;
+            }
+
+            svg {
+                margin-left: 10px;
+            }
+        }
+
+
+       .button-redirect-to-signIn:hover {
+            color: #5c5c5c;
+        }
+    }
+}

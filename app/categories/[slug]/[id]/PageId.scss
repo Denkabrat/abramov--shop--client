@@ -1,0 +1,363 @@
+@media (max-width: 8500px) {
+    .card-single-page-content {
+        align-items: flex-start;
+    }
+
+    .card-content-info {
+        margin-left: 5.5%;
+        width: 500px;
+        height: auto;
+        align-items: flex-start;
+    }
+
+    .block-sizes-page {
+        width: auto;
+        margin-bottom: 30px;
+
+    }
+
+    .block-counter-button {
+        width: 500px;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    .description {
+        line-height: 40px;
+        font-size: 20px;
+        text-align: left;
+        margin-bottom: 30px;
+        margin-top: 30px;
+    }
+
+
+
+    .price {
+        font-size: 30px;
+        background: black;
+        color: white;
+        padding: 10px 20px 10px 20px;
+    }
+    
+
+    .choose-sizes-text {
+        font-size: 20px;
+    }
+
+    .sizes-page {
+        width: 280px;
+
+        .size-button-page {
+            font-size: 25px;
+        }
+    }
+
+    .counter-text {
+        font-size: 20px;
+    }
+
+    .order-to-cart-button {
+        font-size: 20px;
+        width: 250px;
+        height: 45px;
+    }
+
+    .button-minus,
+    .input-counter,
+    .button-plus {
+        font-size: 30px;
+        width: 50px;
+        height: 30px;
+    }
+}
+
+@media (max-width: 1060px) {
+    .card-single-page-content {
+        align-items: flex-start;
+    }
+
+    .card-content-info {
+        margin-left: 5.5%;
+        width: 400px;
+        height: 400px;
+        align-items: flex-start;
+    }
+
+    .block-sizes-page {
+        width: auto;
+    }
+
+    .block-counter-button {
+        width: auto;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .description {
+        line-height: normal;
+        font-size: 18px;
+        text-align: left;
+    }
+
+ 
+    .price {
+        font-size: 25px;
+    }
+    
+
+    .choose-sizes-text {
+        font-size: 18px;
+    }
+
+    .sizes-page {
+        width: 240px;
+
+        .size-button-page {
+            font-size: 22px;
+        }
+    }
+
+    .counter-text {
+        font-size: 18px;
+    }
+
+    .order-to-cart-button {
+        font-size: 18px;
+        width: 200px;
+        height: 50px;
+    }
+
+    .button-minus,
+    .input-counter,
+    .button-plus {
+        font-size: 18px;
+        width: 45px;
+        height: 25px;
+    }
+}
+
+@media (max-width: 940px) {
+    .card-single-page-content {
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .block-sizes-page {
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .block-counter-button {
+        align-items: center;
+    }
+
+    .counter-content {
+        flex-direction: column;
+        gap: 10px 0;
+    }
+
+    .order-to-cart-button {
+        margin-top: 8px;
+    }
+
+    .card-content-info {
+        align-items: center;
+        margin-left: 0;
+        margin-top: 25px;
+    }
+
+    .description {
+        text-align: center;
+    }
+    .price{
+        padding: 8px 18px 8px 18px;
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 400px) {
+    .card-content-info {
+        width: 300px;
+        height: 450px;
+    }
+
+  
+    .price {
+        font-size: 23px;
+        padding: 9px 19px 9px 19px;
+    }
+
+
+    .description {
+        font-size: 18px;
+    }
+
+    .choose-sizes-text {
+        font-size: 18px;
+    }
+
+    .sizes-page {
+        width: 230px;
+    }
+
+    .size-button-page {
+        font-size: 23px;
+    }
+
+    .counter-text {
+        font-size: 18px;
+    }
+
+    .button-minus,
+    .input-counter,
+    .button-plus {
+        font-size: 21px;
+        width: 38px;
+        height: 23px;
+    }
+
+    .order-to-cart-button {
+        margin-top: 10px;
+        font-size: 18px;
+        width: 200px;
+        height: 45px;
+    }
+}
+
+@media (max-width: 300px) {
+    .card-content-info {
+        width: 100%;
+        height: 100%;
+    }
+
+
+    .price {
+        font-size: 18px;
+        padding: 5px 12px 5px 12px;
+
+    }
+
+
+    .description {
+        margin-top: 10px;
+        font-size: 18px;
+    }
+
+    .block-sizes-page {
+        margin-top: 10px;
+    }
+
+    .choose-sizes-text {
+        font-size: 18px;
+    }
+
+    .sizes-page {
+        width: 220px;
+        
+
+        .size-button-page {
+            font-size: 21px;
+        }
+    }
+
+    .counter-text {
+        margin-top: 10px;
+        font-size: 18px;
+    }
+
+    .button-minus,
+    .input-counter,
+    .button-plus {
+        font-size: 21px;
+        width: 35px;
+        height: 20px;
+    }
+
+    .order-to-cart-button {
+        margin-top: 10px;
+        font-size: 18px;
+        width: 200px;
+        height: 40px;
+    }
+}
+.selected-size{
+    -webkit-text-stroke: 1px #000000;
+    color: rgb(255, 255, 255);
+   
+}
+//card page
+.card-single-page-wrapper {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-single-page-title {
+    text-align: center;
+}
+
+.card-single-page-content {
+    margin-top: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.card-content-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.block-price {
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: black;
+
+}
+
+.block-sizes-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .choose-sizes-text {
+        margin-bottom: 10px;
+    }
+
+    .sizes-page {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .size-button-page {
+        transition: .3s all;
+        border: none;
+        background: none;
+        cursor: pointer;
+        &:hover {
+            opacity: .5;
+        }
+    
+    }
+}
+
+
+.order-to-cart-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background: black;
+    color: white;
+    border: none;
+    transition: .3s all;
+
+    &:hover {
+        opacity: .7;
+    }
+}

@@ -1,0 +1,216 @@
+@font-face {
+  font-family: "Light-handwritten-font";
+  src: local("Light-handwritten-font"),
+    url("../../fonts/ofont.ru_Snell\ Roundhand.ttf") format("truetype");
+}
+
+@mixin flex-default {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin button-header {
+  font-family: Regular-font;
+  @include flex-default;
+  cursor: pointer;
+  border: none;
+  background-color: inherit;
+  height: 30px;
+}
+
+@media (max-width: 8500px) {
+  .header-second-other {
+    position: absolute;
+  }
+
+  .right-second-other {
+    display: none
+  }
+
+  .header-shop-name {
+    padding: 13px;
+    font-size: 65px;
+    height: 110px;
+  }
+  .total-price{
+    @include flex-default;
+  }
+
+}
+
+@media (max-width: 1500px) {
+  .header-second {
+    flex-direction: column;
+    @include flex-default;
+  }
+
+  .header-second-other {
+    position: unset;
+    width: 95%;
+    justify-content: flex-end;
+  }
+
+  .categories-catalog {
+    justify-content: space-between;
+    display: flex;
+    width: 100%;
+  }
+
+  .header-second-menu {
+    width: 94%;
+  }
+}
+
+@media (max-width: 940px) {
+
+  
+  .header-second-menu {
+    display: none;
+  }
+
+  .header-second-other {
+    justify-content: space-between;
+    margin: 30px 0;
+  }
+
+  .drop-down-categories {
+    visibility: hidden;
+  }
+
+  .right-second-other {
+    display: block;
+  }
+}
+
+@media (max-width:450px) {
+  .header-shop-name {
+    padding: 13px;
+    width: 100%;
+  }
+
+}
+
+@media (max-width:335px) {
+  .total-price{
+    display: none;
+
+  }
+}
+
+.hidden{
+  display: none;
+}
+
+header {
+  @include flex-default;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+}
+
+.drop-down-categories {
+  visibility: visible;
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+}
+
+.header-logotype {
+  @include flex-default;
+  height: auto;
+  flex-direction: row;
+  width: 100%;
+}
+
+.header-second {
+  border-top: 3px solid black;
+  width: 100%;
+  @include flex-default;
+
+  .header-second-menu {
+
+    .categories-catalog {
+      gap: 20px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      list-style: none;
+      width: 100%;
+    }
+
+    .category {
+      font-size: 20px;
+    }
+
+    .Link-header {
+      white-space: nowrap;
+      color: black;
+      text-decoration: none;
+      background-image: linear-gradient(currentColor, currentColor);
+      background-position: 50% 100%;
+      background-repeat: no-repeat;
+      background-size: 0% 1.5px;
+      transition: background-size 0.3s;
+      height: 25px;
+      cursor: pointer;
+
+      &:hover {
+        background-size: 100% 1.5px;
+      }
+    }
+  }
+}
+
+.header-second-other {
+  display: flex;
+  right: 4vh;
+
+  svg {
+    transition: 0.25s all;
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+}
+
+.header-shop-name {
+  @include flex-default;
+  text-align: center;
+  background-color: #000000;
+  font-weight: lighter;
+  color: #ffffff;
+  text-decoration: none;
+  margin: 0;
+}
+
+.profile-account-icon {
+  @include button-header;
+  font-size: 22px;
+}
+
+.cart-icon {
+  @include button-header;
+}
+
+.total-price {
+  color: black;
+  font-size: 24px;
+}
+
+.open-admin-panel {
+  color: black;
+  @include button-header;
+  transition: 0.25s all;
+  font-size: 28px;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.left-second-other {
+  @include flex-default;
+  gap: 20px;
+}

@@ -1,0 +1,174 @@
+@media(max-width: 8600px) {
+  .error-description {
+    font-size: 20px;
+  }
+
+  .Link_to_home {
+    font-size: 20px;
+  }
+
+  .page-not-found {
+    font-size: 60px;
+  }
+
+  .error-code {
+    font-size: 150px;
+  }
+
+  .error-line {
+    height: 70%;
+    width: 1px;
+  }
+
+  .error-main {
+    width: 700px;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+@media(max-width: 700px) {
+  .error-description {
+    font-size: 20px;
+  }
+
+  .Link_to_home {
+    font-size: 20px;
+  }
+
+  .page-not-found {
+    font-size: 40px;
+  }
+
+  .error-code {
+    font-size: 150px;
+  }
+
+  .error-line {
+    height: 1px;
+    width: 80%;
+  }
+
+  .error-description {
+    margin-top: 25px;
+  }
+
+  .error-main {
+    width: 500px;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+@media(max-width: 500px) {
+  .error-description {
+    font-size: 18px;
+  }
+
+  .Link_to_home {
+    font-size: 18px;
+  }
+
+  .page-not-found {
+    font-size: 30px;
+  }
+
+  .error-code {
+    font-size: 100px;
+  }
+
+  .error-line {
+    height: 1px;
+    width: 70%;
+  }
+
+  .error-main {
+    width: 300px;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+@media(max-width: 300px) {
+  .error-description {
+    font-size: 15px;
+  }
+
+  .Link_to_home {
+    font-size: 15px;
+  }
+
+  .page-not-found {
+    font-size: 20px;
+  }
+
+  .error-code {
+    font-size: 80px;
+  }
+
+  .error-line {
+    height: 1px;
+    width: 70%;
+  }
+
+  .error-main {
+    width: 250px;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.page-not-found {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.error-code {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  opacity: 0.3;
+}
+
+.error-wrapper {
+  width: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .error-line {
+    background-color: rgb(160, 160, 160);
+  }
+
+  .error-main {
+    display: flex;
+    align-items: center;
+
+    .error-content {
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+
+      .error-description {
+        margin-bottom: 25px;
+        text-align: center;
+        font-weight: 300;
+        width: auto;
+      }
+
+      .Link_to_home {
+        text-decoration: none;
+        color: black;
+        border-bottom: 1px solid black;
+        height: 25px;
+
+        &:hover {
+          border: none;
+        }
+      }
+    }
+  }
+}
