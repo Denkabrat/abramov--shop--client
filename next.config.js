@@ -4,12 +4,7 @@ const nextConfig = {
     swcMinify:true,
     optimizeFonts:true,
     images:{
-        remotePatterns:[
-            {
-                protocol:'https',
-                hostname:'abramov-shop-server-s9l0.onrender.com'
-            },
-        ],
+        domains: ['abramov-shop-server-s9l0.onrender.com'],
         minimumCacheTTL:1500000
     }
 };

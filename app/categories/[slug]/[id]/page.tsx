@@ -84,7 +84,7 @@ export default function Product({params}: {params: {id: string[]}}) {
                 sizesArray.map(({size},index) =>(
                   <button
                     key={index} 
-                    className={`size-button-page ${goodSize === size ? 'selected-size' : ''}`}
+                    className={`size-button-page ${goodSize === size ? 'selected-size' : 'size-button-page'}`}
                     onClick={()=> setGoodSize(size)}>{size}</button>
                 ))
               }

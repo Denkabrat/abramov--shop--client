@@ -73,7 +73,7 @@ const ModalCart: FC<IModalCartProps> = ({changeModalStatus,modal,setModalCart,go
             className="close"
             onClick={() => changeModalStatus(false, setModalCart)}
           >
-            <PiCaretDoubleLeftThin />
+            <PiCaretDoubleLeftThin  />
             <p className="purchases-title">Корзина</p>
           </button>
         </div>
