@@ -27,18 +27,24 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({params}: {params: { slug: string }}){
 
-  try {
-    const {name} = await getOneTypeById(params.slug);
-
-    return {
-      title:`${name} - Abramov`,
-      icons:{
-        icon:'/favicon.png'
-      }
-    }
-  } catch (error) {
-      redirect(SHOP_ROUTE);
-  }
+  return getOneTypeById(params.slug)
+    .then(({name}) => {
+      return {
+        title: `${name} - Abramov`,
+        icons: {
+          icon: '/favicon.png'
+        }
+      };
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      return {
+        redirect: {
+          destination: SHOP_ROUTE,
+          permanent: false,
+        },
+      };
+    });
 };
 
 
