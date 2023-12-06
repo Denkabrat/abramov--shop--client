@@ -4,24 +4,18 @@ import { redirect } from 'next/navigation';
 
 export async function generateMetadata({params}: {params: { id: string }}){
 
-  return getOneCardById(params.id)
-    .then(({ name }) => {
-      return {
-        title: `${name} - Abramov`,
-        icons: {
-          icon: '/favicon.png'
-        }
-      };
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-      return {
-        redirect: {
-          destination: SHOP_ROUTE,
-          permanent: false,
-        },
-      };
-    });
+   try {
+    const {name} = await getOneCardById(params.id);
+
+    return {
+      title:`${name} - Abramov`,
+      icons:{
+        icon:'/favicon.png'
+      }
+    }
+   } catch (error) {
+      redirect(SHOP_ROUTE);
+   }
 }
   
 export default function categoryTypeLayout({children}: {children: React.ReactNode}) {
