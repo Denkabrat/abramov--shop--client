@@ -1,7 +1,6 @@
 //glogal
 'use client'
 import React ,{ ChangeEvent, useContext,useEffect,useState,Dispatch,SetStateAction  } from "react";
-import { deleteCookie,hasCookie } from 'cookies-next';
 import { useRouter } from "next/navigation";
 import { SHOP_ROUTE } from "@/utils/consts";
 import { SidebarContext } from "@/app/layout";
@@ -51,11 +50,11 @@ const UserPage = () => {
 
 function logOut(){
 
- if(isActive && hasCookie('token')) {
+ if(isActive) {
       setIsActive(false);
       setIsAdmin(false);
       router.push(SHOP_ROUTE);
-      deleteCookie('token');
+      localStorage.removeItem('token');
       toastSuccess('Вы вышли из аккаунта');
   }else{
       toastError('Неизвестная ошибка');
