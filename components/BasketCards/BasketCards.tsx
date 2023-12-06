@@ -48,12 +48,14 @@ import "./BasketCards.scss";
           <p className="item-quantity">Количество:</p>
           <div className="block-counter">
             <button
+            className="button-action"
               onClick={() => changeGoodCountAndDelete(goodId,size,'dec')}
             >
               -
             </button>
             <span>{counter}</span>
             <button
+            className="button-action"
             onClick={() => changeGoodCountAndDelete(goodId,size,'inc')}
              >+</button>
           </div>
