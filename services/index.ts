@@ -1,5 +1,4 @@
 import axios from "axios";
-import { getCookie } from 'cookies-next';
 
 const $host = axios.create({
     baseURL:process.env.NEXT_PUBLIC_API_URL
@@ -11,7 +10,7 @@ const $authorizationHost = axios.create({
 
 const authorizationInterceptor = (config:any) => {
 
-    config.headers.authorization = `Bearer ${getCookie('token')}`
+    config.headers.authorization = `Bearer ${localStorage.getItem('token')}`
 
     return config;
 }
