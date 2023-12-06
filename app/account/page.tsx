@@ -156,7 +156,7 @@ useEffect(()=>{
         })();
     },[router])
 
-  if(!isActive && !userInformation && !userAddress){
+  if(!isActive){
       return <Icons id="spiner" />;
   }
 
