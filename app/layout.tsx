@@ -2,6 +2,7 @@
 
 //Global
 import { Dispatch, SetStateAction , useEffect,createContext,useState} from "react";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 //services
 import { AxiosError } from "axios";
 import { getCart } from "@/services/basketAPI";
@@ -237,6 +238,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
 
 
           <ToastContainer />
+          <SpeedInsights />
       </body>
     </html>
   );

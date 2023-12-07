@@ -1,5 +1,6 @@
 //Global
 import { Metadata } from "next";
+import MainPageBanner from "@/components/MainPage/MainPageBanner";
 //Styles
 import "./homepage.scss";
 
@@ -16,6 +17,6 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return(
   <div className="main-page">
-     
+    <MainPageBanner/>
   </div>);
 }

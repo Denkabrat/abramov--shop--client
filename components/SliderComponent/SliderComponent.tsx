@@ -52,4 +52,3 @@ const SliderComponent = ({img}:{img:[]}) => {
 };
 
 export default SliderComponent;
-// {/* <Image src={process.env.NEXT_PUBLIC_API_URL + imgUrl} fill={true}  alt="black" /> */}

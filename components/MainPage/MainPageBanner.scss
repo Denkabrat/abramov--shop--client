@@ -1,0 +1,204 @@
+@media (max-width: 8550px) {
+    .main-page-wrapper{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+    }
+
+    .left-side-banner-photo{
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 50px;
+        p{
+            color: rgb(0, 0, 0);
+            font-size: 25px;
+        }
+    }
+    
+    .main-page-left-side{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(255, 255, 255);
+        height: 700px;
+        width: 60%;
+        border-right: 2px solid rgb(0, 0, 0);
+    }
+   
+    .main-page-right-side{
+        display: flex;
+        flex-direction: column;
+        height: 700px;
+        width: 50%;
+    
+        .right-side-top{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(255, 255, 255);
+            border-bottom: 2px solid rgb(0, 0, 0);
+            height: 75%;
+        }
+        .right-side-bottom{
+            background-color: rgb(255, 255, 255);
+            height: 25%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    .banner-good-description{
+        color: rgb(0, 0, 0);
+        font-size: 35px;
+        width: 80%;
+    }
+    .banner-good-bottom-description{
+        color: rgb(0, 0, 0);
+        font-size: 25px;
+        width: 80%;
+    }
+}
+
+@media (max-width: 1500px) {
+    .main-page-wrapper{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        margin-top: 20px;
+    }
+    .left-side-banner-photo{
+        img{
+            width: 80%;
+            height: 80%;
+        }
+    }
+    
+    .main-page-left-side{
+        height: 600px;
+        width: 65%;
+        border-right: 2px solid rgb(0, 0, 0);
+    }
+    
+    .main-page-right-side{
+        display: flex;
+        flex-direction: column;
+        height: 600px;
+        width: 50%;
+       
+    }
+
+    .banner-good-description{
+        font-size: 25px;
+    }
+    .banner-good-bottom-description{
+        font-size: 22px;
+    }
+  
+}
+
+@media (max-width: 940px) {
+    .left-side-banner-photo{
+        img{
+            width: 65%;
+            height: 65%;
+        }
+    }
+    .main-page-left-side{
+        height: 500px;
+     
+    }
+    
+    .main-page-right-side{
+
+        height: 500px;
+    }
+    .banner-good-description{
+        font-size: 20px;
+    }
+    .banner-good-bottom-description{
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 800px) {
+    .main-page-wrapper{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+    
+    .main-page-left-side{
+        width: 100%;
+        border-right: none;
+        border-bottom: 2px solid rgb(0, 0, 0);
+    }
+    
+    .main-page-right-side{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .banner-good-description{
+        font-size: 25px;
+    }
+    .banner-good-bottom-description{
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 450px) {
+    .main-page-left-side{
+        height: 300px;
+    }
+    
+    .main-page-right-side{
+        height: 300px;
+    }
+    .banner-good-description{
+        font-size: 20px;
+    }
+    .banner-good-bottom-description{
+        font-size: 18px;
+    }
+    .left-side-banner-photo{
+        gap: 10px;
+        img{
+            width: 55%;
+            height: 55%;
+        }
+    }
+}
+
+@media (max-width: 270px) {
+   
+    .banner-good-description{
+        font-size: 15px;
+    }
+    .banner-good-bottom-description{
+        font-size: 14px;
+    }
+    .left-side-banner-photo{
+        gap: 10px;
+        img{
+            width: 55%;
+            height: 55%;
+        }
+    }
+}
+
+.main-page-banner{
+    width: 100%;
+    height: 100%;
+}
+
+
