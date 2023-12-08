@@ -12,7 +12,7 @@
         display: flex;
         align-items: center;
         flex-direction: column;
-        gap: 50px;
+        gap: 30px;
         p{
             color: rgb(0, 0, 0);
             font-size: 25px;
@@ -74,9 +74,11 @@
         margin-top: 20px;
     }
     .left-side-banner-photo{
+        width: 100%;
+        height: 100%;
         img{
-            width: 80%;
-            height: 80%;
+            width: 406px;
+            height: 420px;
         }
     }
     
@@ -106,8 +108,8 @@
 @media (max-width: 940px) {
     .left-side-banner-photo{
         img{
-            width: 65%;
-            height: 65%;
+            width: 330px;
+            height: 325px;
         }
     }
     .main-page-left-side{
@@ -154,6 +156,13 @@
     .banner-good-bottom-description{
         font-size: 22px;
     }
+
+    .left-side-banner-photo{
+        img{
+            width: 360px;
+            height: 380px;
+        }
+    }
 }
 
 @media (max-width: 450px) {
@@ -173,8 +182,8 @@
     .left-side-banner-photo{
         gap: 10px;
         img{
-            width: 80%;
-            height: 80%;
+            width: 230px;
+            height: 250px;
         }
     }
 }
