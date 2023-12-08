@@ -13,8 +13,8 @@ import "swiper/css/pagination";
 import "swiper/css/effect-creative";
 
 // Кастомный loader для изменения параметров запроса изображения
-const customLoader = ({ src, quality }:any) => {
-  return `${src}?w=${640}&q=${quality || 75}`;
+const customLoader = ({ src, width, quality }:any) => {
+  return `${src}?w=${width}&q=${quality || 75}`;
 };
 
 const SliderComponent = ({ img }: { img: string[] }) => {
@@ -48,6 +48,7 @@ const SliderComponent = ({ img }: { img: string[] }) => {
                   height={500}
                   className="photo"
                   alt="black"
+                  onError={(e) => console.error('Image error:', e)}
                 />
               </div>
             </div>
