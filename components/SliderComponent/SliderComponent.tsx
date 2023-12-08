@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Navigation, Pagination, EffectCreative, EffectCube } from "swiper/modules";
+import { Navigation, Pagination, EffectCreative } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 //Components
@@ -13,8 +13,8 @@ import "swiper/css/pagination";
 import "swiper/css/effect-creative";
 
 // Кастомный loader для изменения параметров запроса изображения
-const customLoader = ({ src, width, quality }:any) => {
-  return `${src}?w=${width}&q=${quality || 75}`;
+const customLoader = ({ src, quality }:any) => {
+  return `${src}?w=${640}&q=${quality || 75}`;
 };
 
 const SliderComponent = ({ img }: { img: string[] }) => {
