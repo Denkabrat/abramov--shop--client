@@ -22,7 +22,7 @@ import "./BasketCards.scss";
       .then(() => getUserCartFromBackEnd())
       .catch(error => toastWarning(error.response.data.message.message));
     } catch (error) {
-        console.error(error)
+        console.error(error);
     };
  };
 
