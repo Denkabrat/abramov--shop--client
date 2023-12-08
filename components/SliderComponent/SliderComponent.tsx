@@ -40,7 +40,7 @@ const SliderComponent = ({img}:{img:[]}) => {
             img.map((imgUrl: string,id:number) => (
                  <SwiperSlide  key={id}>
                         {
-                            img ? <div className="main-wrapper-photo"><div className="one-photo"><Image src={`${process.env.NEXT_PUBLIC_API_URL}/` + imgUrl + `?w=640`} width={640} height={500} className="photo" alt="black" /></div></div> : <Icons id="spiner"/>
+                            img ? <div className="main-wrapper-photo"><div className="one-photo"><Image src={`${process.env.NEXT_PUBLIC_API_URL}/` + imgUrl + `?w=640`} width={500} height={500} className="photo" alt="black" /></div></div> : <Icons id="spiner"/>
                         }
                   
                  </SwiperSlide>
