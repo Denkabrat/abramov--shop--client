@@ -12,10 +12,8 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-creative";
 
-// Кастомный loader для изменения параметров запроса изображения
-const customLoader = ({ src, width, quality }:any) => {
-  return `${src}?w=${width}&q=${quality || 75}`;
-};
+
+
 
 const SliderComponent = ({ img }: { img: string[] }) => {
   return (
@@ -42,13 +40,11 @@ const SliderComponent = ({ img }: { img: string[] }) => {
             <div className="main-wrapper-photo">
               <div className="one-photo">
                 <Image
-                  loader={customLoader} // Передаем кастомный loader
                   src={`${process.env.NEXT_PUBLIC_API_URL}/` + imgUrl}
                   width={500}
                   height={500}
                   className="photo"
                   alt="black"
-                  onError={(e) => console.error('Image error:', e)}
                 />
               </div>
             </div>
