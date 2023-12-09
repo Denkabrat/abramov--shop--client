@@ -11,7 +11,6 @@ export const metadata: Metadata = {
 
 
 export default function accountLayout({children}: {children: React.ReactNode}) {
-
   
   return <div>{children}</div>
   
