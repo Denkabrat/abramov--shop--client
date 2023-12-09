@@ -22,7 +22,7 @@ const MainPageBanner = () => {
                 </div>
                 <div className="right-side-bottom">
                      <p className="banner-good-bottom-description">
-                         Состав: 95% cotton, 5% spandex. Плотность 190 г/м²
+                         Сервер стоит на плохом хостинге, данные могут не загрузиться с первого раза
                     </p>      
                 </div>
             </div>
