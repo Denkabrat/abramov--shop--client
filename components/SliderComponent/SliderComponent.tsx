@@ -15,6 +15,7 @@ import "swiper/css/effect-creative";
 
 const SliderComponent = ({img}:{img:[]}) => {
 
+    
     return (
         <Swiper
             effect={'effect-creative'}
