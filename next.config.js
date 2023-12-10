@@ -4,7 +4,7 @@ const nextConfig = {
     swcMinify:true,
     optimizeFonts:true,
     images:{
-        domains: ['abramov-shopserver-production.up.railway.app'],
+        domains: ['abramov-shop-server.onrender.com'],
         minimumCacheTTL:1500000
     }
 };
