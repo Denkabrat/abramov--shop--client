@@ -22,7 +22,7 @@ const MainPageBanner = () => {
                 </div>
                 <div className="right-side-bottom">
                      <p className="banner-good-bottom-description">
-                         Сервер стоит на плохом хостинге, первую загрузку данных может занять до 2-х минут 
+                         Сервер стоит на плохом хостинге, первая загрузка данных может занять до 2-х минут 
                     </p>      
                 </div>
             </div>
