@@ -27,7 +27,6 @@
 }
 
 
-
 .modal-menu-wrapper {
     position: fixed;
     top: 0;
@@ -90,7 +89,6 @@
         }
 
         & p {
-            font-family: Regular-font;
             color: rgba(0, 0, 0, 0.750);
             font-size: 30px;
         }
@@ -104,6 +102,7 @@
     margin-bottom: 50px;
 
     .menu-category {
+        text-transform: uppercase;
         padding: 0 25px;
         height: 65px;
         text-decoration: none;

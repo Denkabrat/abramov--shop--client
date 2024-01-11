@@ -1,6 +1,7 @@
 //Global
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { OrdersCards } from "@/components/OrdersCards/OrdersCards";
+import { stopPropagation } from "@/app/layout";
 
 //Types
 import { IModalRenderOrderProps } from "@/types/types";
@@ -13,60 +14,55 @@ import { PiCaretDoubleRightThin } from "react-icons/pi";
 
 
 const ModalRenderOrders: FC<IModalRenderOrderProps> = ({
-  modalRenderOrdres,
-  changeModalStatus,
-  setModalRenderOrdres,
+  modalRenderOrders,
+  setModalRenderOrders,
   userOrder,
 }) => {
 
 
+const orderWrapperClassName = modalRenderOrders ? "modal-render-order-wrapper active" : "modal-render-order-wrapper";
+const orderContentClassName = modalRenderOrders ? "modal-render-order-content active" : "modal-render-order-content";
 
+
+const changeModalStatus = () => setModalRenderOrders(false);
+
+const renderOrders = () => {
+
+  if(userOrder.length === 0){
+    return(
+      <div className="empty-orders-block">
+        <p className="empty-orders-message">Заказы отсутствуют</p>
+        <p className="empty-ordes-back-to-buy">Оформи заказ прямо сейчас</p>
+      </div>
+    )
+  }
+  
+  return(
+      <OrdersCards 
+       modalRenderOrders={modalRenderOrders}
+       setModalRenderOrders={setModalRenderOrders}
+       userOrder={userOrder}
+     />
+  )
+}
 
   return (
-    <div
-      onClick={() => changeModalStatus(false, setModalRenderOrdres)}
-      className={
-        modalRenderOrdres
-          ? "modal-render-order-wrapper active"
-          : "modal-render-order-wrapper"
-      }
-    >
-      <div
-        className={
-          modalRenderOrdres
-            ? "modal-render-order-content active"
-            : "modal-render-order-content"
-        }
-        onClick={(e) => e.stopPropagation()}
-      >
-          {/* header */}
+    <div onClick={changeModalStatus} className={orderWrapperClassName}>
+      <div className={orderContentClassName} onClick={stopPropagation}>
+
         <div className="modal-render-order-header">
           <button
             className="close"
-            onClick={() => changeModalStatus(false, setModalRenderOrdres)}
+            onClick={changeModalStatus}
           >
             <p className="modal-render-order-title">Мои заказы</p>
             <PiCaretDoubleRightThin />
           </button>
         </div>
-
+        
         {
-          userOrder.length === 0 ? (
-            <div className="empty-orders-block">
-              <p className="empty-orders-message">Заказы отсутствуют</p>
-              <p className="empty-ordes-back-to-buy">Оформи заказ прямо сейчас</p>
-            </div>
-          ) :(
-             <OrdersCards 
-              modalRenderOrdres={modalRenderOrdres}
-              setModalRenderOrdres={setModalRenderOrdres}
-              changeModalStatus={changeModalStatus}
-              userOrder={userOrder}
-            />
-          )
+          renderOrders()
         }
-       
-
        
       </div>
     </div>

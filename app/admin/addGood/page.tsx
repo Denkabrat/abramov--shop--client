@@ -9,6 +9,7 @@ import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { adminPanelAddGood } from '@/types/types';
 //Style
 import './addGood.scss';
+import { priceRegular } from '@/utils/consts';
 
 const addGoodPage = () => {
 
@@ -25,6 +26,8 @@ const addGoodPage = () => {
   const {goodName,goodPrice,goodType,goodDescription} = goodInformation;
 
   const {register, handleSubmit,formState:{errors}} = useForm<adminPanelAddGood>({defaultValues:{}});
+
+  const headerForPhoto = selectedFile.length > 0 ? `${selectedFile.length} фото выбрано` : 'Нажми чтобы загрузить фото';
 
   useEffect(()=>{
       getTypes()
@@ -85,36 +88,67 @@ const addGoodPage = () => {
         })
         .catch(error => toastError(error.response.data.message.message));
 };
-  return (
-    <div className='create-good-wrapper'>
-        <h1 className='manage-name-title'>Добавить новый товар</h1>
-            <div className="create-good-blocks">
-                <p className='good-name'>
-                  Введите название товара
-                </p>
 
-                <input 
-                  className='good-input'
-                  placeholder='Название'
-                    {...register('goodName', {
-                      required: 'Введите название товара',
-                      minLength:{
-                        value:4,
-                        message:'Название слишком короткое'
-                      },
-                      maxLength:{
-                        value:50,
-                        message:"Название слишком длинное"
-                      },
-                      pattern: {
-                          value:  /^[A-Za-zА-Яа-яЁё][A-Za-zА-Яа-яЁё0-9\s]*$/,
-                          message: 'Название должно начинаться с заглавной буквы и быть написанным на кириллице',
-                      },
-                    })}
-                  type="text" 
-                  value={goodName}
-                  onChange={(e)=> {createGoodInformation(e,setGoodInformation,goodInformation)}}
-                  />
+  const renderAllTypes = () => (
+    allTypesRender.map(({name,id},index)=>(
+      <option key={index} value={id}>{name}</option>
+    ))
+  )
+  
+  const renderFileNames = () => (
+    Array.from(selectedFile).map((file:File, index) => (
+      <li className='choosen-files-name' key={index}>{file.name}</li>
+    ))
+  )
+
+  const renderChoosenFiles = () => {
+
+    if(selectedFile){
+      return(
+        <div className='choosen-file-wrapper'>
+          <p className='choosen-file-title'>Выбранные файлы:</p>
+              <ul className='choosen-files'>
+                {
+                  renderFileNames()
+                }
+              </ul>
+        </div>
+      )
+  }
+}
+
+return (
+  <form onSubmit={handleSubmit(postNewGood,error)} className='create-good-wrapper'>
+      <h1 className='manage-name-title'>Добавить новый товар</h1>
+
+        <div className="create-good-blocks">
+
+          <p className='good-name'>
+            Введите название товара
+          </p>
+
+          <input 
+            className='good-input'
+            placeholder='Название'
+              {...register('goodName', {
+                required: 'Введите название товара',
+                minLength:{
+                  value:4,
+                  message:'Название слишком короткое'
+                },
+                maxLength:{
+                  value:50,
+                  message:"Название слишком длинное"
+                },
+                pattern: {
+                    value:  /^[A-Za-zА-Яа-яЁё][A-Za-zА-Яа-яЁё0-9\s]*$/,
+                    message: 'Название должно начинаться с заглавной буквы и быть написанным на кириллице',
+                },
+              })}
+            type="text" 
+            value={goodName}
+            onChange={(e)=> {createGoodInformation(e,setGoodInformation,goodInformation)}}
+            />
             </div>
 
             <div className="create-good-blocks">
@@ -136,7 +170,7 @@ const addGoodPage = () => {
                         message:"Цена слишком большая"
                       },
                       pattern: {
-                          value:  /^\d+$/,
+                          value:  priceRegular,
                           message: 'Цена не должна содержать буквы и пробелы',
                       },
                     })}
@@ -153,8 +187,8 @@ const addGoodPage = () => {
 
                 <select 
                   {...register("goodType",
-                     { required: 'Выберите тип товара' })
-                   }
+                    { required: 'Выберите тип товара' })
+                  }
                   required
                   className='select-good-wrapper' 
                   value={goodType} 
@@ -163,14 +197,12 @@ const addGoodPage = () => {
 
                   <option value="">Выберите...</option>
                   {
-                    allTypesRender.map(({name,id},index)=>(
-                      <option key={index} value={id}>{name}</option>
-                    ))
+                    renderAllTypes()
                   }
 
                 </select>
             </label>
-           
+          
             <div className="create-good-blocks">
                 <p className='good-name'>
                   Введите описание товара
@@ -201,38 +233,33 @@ const addGoodPage = () => {
                 </p>
 
                 <div className="file-upload">
-                  <h3> {selectedFile.length > 0 ? `${selectedFile.length} фото выбрано` : 'Нажми чтобы загрузить фото'}</h3>
+                  <h3>{headerForPhoto}</h3>
                   <input
-                   {...register("goodFile",
-                   { required: 'Добавьте фотографию' })
-                   }
+                  {...register("goodFile",
+                  { required: 'Добавьте фотографию' })
+                  }
                     type="file" 
                     multiple
                     required
                     onChange={handleFileChange}
-                   />
+                  />
                 </div>
-                {selectedFile && (
-                  <div className='choosen-file-wrapper'>
-                    <p className='choosen-file-title'>Выбранные файлы:</p>
-                    <ul className='choosen-files'>
-                      {Array.from(selectedFile).map((file:File, index) => (
-                        <li className='choosen-files-name' key={index}>{file.name}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+
+                {
+                  renderChoosenFiles()
+                }
+
             </div>
 
-          <button 
-           type="button"
-           className='button-to-create'
-           onClick={handleSubmit(postNewGood,error)}
-          >
-            Создать
-          </button>
-    </div>
-  )
+        <button 
+          type="submit"
+          className='button-to-create'
+          onClick={handleSubmit(postNewGood,error)}
+        >
+          Создать
+        </button>
+  </form>
+)
 }
 
 export default addGoodPage

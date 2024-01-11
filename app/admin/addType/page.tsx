@@ -8,6 +8,7 @@ import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { adminPanelAddTypes } from '@/types/types';
 //Style
 import './addType.scss';
+import { nameRegular, routeRegular } from '@/utils/consts';
 
 const addTypePage = () => {
 
@@ -21,7 +22,7 @@ const addTypePage = () => {
   }
 
   const postNewTypes:SubmitHandler<adminPanelAddTypes> = () => {
-      createType(typeName,typeRoute)
+      createType({name: typeName,route: typeRoute})
         .then(()=>{
           setTypeName('');
           setTypeRoute('');
@@ -32,7 +33,7 @@ const addTypePage = () => {
 
 
   return (
-    <div className='create-type-wrapper'>
+    <form onSubmit={handleSubmit(postNewTypes,error)} className='create-type-wrapper'>
         <h1 className='manage-name-title'>Создать тип</h1>
             <div className="create-type-blocks">
                 <p className='type-name'>
@@ -53,7 +54,7 @@ const addTypePage = () => {
                         message:"Название слишком длинное"
                       },
                       pattern: {
-                          value:  /^[А-Я][а-яё]*$/,
+                          value:  nameRegular,
                           message: 'Название должно начинаться с заглавной буквы и быть написанным на кириллице',
                       },
                     })}
@@ -81,7 +82,7 @@ const addTypePage = () => {
                         message:"Путь слишком длинный"
                       },
                       pattern: {
-                          value:  /^[a-z]+$/,
+                          value:  routeRegular,
                           message: 'Путь должно быть написан нижним регистром на английском без использования - /',
                       },
                     })}
@@ -92,14 +93,14 @@ const addTypePage = () => {
             </div>
         
 
-          <button 
-           type="button"
-           className='button-to-create'
-           onClick={handleSubmit(postNewTypes,error)}
-          >
-            Создать
-          </button>
-    </div>
+            <button 
+            type="submit"
+            className='button-to-create'
+            onClick={handleSubmit(postNewTypes,error)}
+            >
+              Создать
+            </button>
+    </form>
   )
 }
 

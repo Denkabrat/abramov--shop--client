@@ -1,7 +1,7 @@
 "use client";
 
 //Global
-import { Dispatch, SetStateAction , useEffect,createContext,useState} from "react";
+import { useEffect,createContext,useState,MouseEvent} from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 //services
 import { AxiosError } from "axios";
@@ -26,9 +26,7 @@ import { IContext,IUserResponse,Order,IUserData } from "@/types/types";
 //Styles
 import "./globals.scss";
 
-
-
-
+export const stopPropagation = (e: MouseEvent<HTMLDivElement>) => e.stopPropagation();
 
 export const SidebarContext = createContext<IContext>({
   setIsAdmin:()=>{},
@@ -36,8 +34,8 @@ export const SidebarContext = createContext<IContext>({
   setIsActive:()=>{},
   allTypes:[],
   getUserCartFromBackEnd:()=>{},
-  setModalRenderOrdres:()=>{},
-  modalRenderOrdres:false});
+  setModalRenderOrders:()=>{},
+  modalRenderOrders:false});
 
 export async function getUser(): Promise<IUserResponse> {
 
@@ -62,9 +60,8 @@ export async function getUser(): Promise<IUserResponse> {
 export default function RootLayout({children}: {children: React.ReactNode}) {
   
   const [modalSignIn, setModalSignIn] = useState<boolean>(false);
-  const [modalRenderOrdres, setModalRenderOrdres] = useState<boolean>(false);
+  const [modalRenderOrders, setModalRenderOrders] = useState<boolean>(false);
   const [modalCart, setModalCart] = useState<boolean>(false);
-  const [modalOrder, setModalOrder] = useState<boolean>(false);
   const [modalSignUp, setModalSignUp] = useState<boolean>(false);
   const [modalMenu, setModalMenu] = useState<boolean>(false);
   const [isActive, setIsActive] = useState<boolean>(false);
@@ -76,16 +73,15 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
     
 
   //hideScroll
-  const isActiveModals = modalCart || modalOrder || modalSignIn || modalRenderOrdres || modalSignUp || modalMenu;
+  const isActiveModals = modalCart || modalSignIn || modalRenderOrders || modalSignUp || modalMenu;
 
-  const changeModalStatus = (status: boolean, modalName: Dispatch<SetStateAction<boolean>>) => {modalName(status);};
+  const manageToOverFlow = isActiveModals ? "hidden" : "auto";
 
-   
   const getUserCartFromBackEnd = async () => {
     getCart()
       .then(({userCart, totalPrice})=>{
         setGoodsCart(userCart);
-        setTotalSum(totalPrice);
+        setTotalSum(totalPrice?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, " "));
       })
     .catch(error =>console.error(error.response.data.message));
   }
@@ -163,15 +159,10 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
 
   return (
     <html lang="en">
-      <body
-        style={{
-          overflow: isActiveModals ? "hidden" : "auto",
-        }}
-      >
+      <body style={{overflow:manageToOverFlow}}>
+
         <div className="wrapper">
-        
             <Header
-                changeModalStatus={changeModalStatus}
                 setModalSignIn={setModalSignIn}
                 setModalCart={setModalCart}
                 setModalMenu={setModalMenu}
@@ -179,63 +170,48 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
                 isActive={isActive}
                 allTypes={allTypes}
                 isAdmin={isAdmin}
-              />
+            />
         
-        <SidebarContext.Provider value={{isActive,setIsAdmin, setIsActive,allTypes,getUserCartFromBackEnd,setModalRenderOrdres,modalRenderOrdres}}>
-              <main className="main">{children}</main>
-        </SidebarContext.Provider>
+                <SidebarContext.Provider value={{isActive,setIsAdmin, setIsActive,allTypes,getUserCartFromBackEnd,setModalRenderOrders,modalRenderOrders}}>
+                      <main className="main">{children}</main>
+                </SidebarContext.Provider>
           
-          <Footer />
+            <Footer />
         </div>
 
         <ModalSignIn
           modal={modalSignIn}
           setModalSignIn={setModalSignIn}
           setModalSignUp={setModalSignUp}
-          changeModalStatus={changeModalStatus}
           setIsActive={setIsActive}
         />
         
         <ModalRenderOrders
-          modalRenderOrdres={modalRenderOrdres}
-          setModalRenderOrdres={setModalRenderOrdres}
-          changeModalStatus={changeModalStatus}
+          modalRenderOrders={modalRenderOrders}
+          setModalRenderOrders={setModalRenderOrders}
           userOrder={userOrder}
         />
 
         <ModalCart
             modal={modalCart}
-            changeModalStatus={changeModalStatus}
             setModalCart={setModalCart}
             goodsCart={goodsCart}
             totalSum={totalSum}
             getUserCartFromBackEnd={getUserCartFromBackEnd}
-          />
+        />
       
-
-       
-
-
-
-         <ModalSignUp
+        <ModalSignUp
           modalSignUp={modalSignUp}
-          changeModalStatus={changeModalStatus}
           setModalSignUp={setModalSignUp}
           setModalSignIn={setModalSignIn}
           setIsActive={setIsActive}
-         />
+        />
         
-
-
         <ModalMenu
-          setModalOrder={setModalOrder}
           modalMenu={modalMenu}
-          changeModalStatus={changeModalStatus}
           setModalMenu={setModalMenu}
           allTypes={allTypes}
         />
-
-
 
           <ToastContainer />
           <SpeedInsights />

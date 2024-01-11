@@ -1,6 +1,6 @@
 'use client';
 //Global
-import React,{useEffect, useState} from 'react';
+import React,{useEffect, useState,FormEvent,MouseEvent} from 'react';
 import { toastError, toastSuccess } from '@/app/toastsChange';
 import { getTypes,deleteTypeByName } from '@/services/typesAPI';
 //Types
@@ -31,9 +31,19 @@ const deleteTypePage = () => {
       })
       .catch(error => toastError(error.response.data.message.message));
   }
+  const renderAllTypes = () => (
+      allTypes.map(({name},index)=>(
+        <option key={index} value={name}>{name}</option>
+      ))
+  )
+  const handleSubmit = (event: FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    deleteType(candidateToDelete);
+  }
 
   return (
-    <div className='delete-type-wrapper'>
+
+    <form onSubmit={handleSubmit} className='delete-type-wrapper'>
         <h1 className='manage-name-title'>Удалить тип</h1>
             <label className="delete-type-blocks">
                 <p className='type-name'>
@@ -45,10 +55,9 @@ const deleteTypePage = () => {
                   onChange={(e) => setCandidateToDelete(e.target.value)}>
 
                   <option value="">Выберите...</option>
+
                   {
-                    allTypes.map(({name},index)=>(
-                      <option key={index} value={name}>{name}</option>
-                    ))
+                    renderAllTypes()
                   }
 
                 </select>
@@ -58,15 +67,14 @@ const deleteTypePage = () => {
 
         
 
-          <button 
-           onClick={(e)=> {e.preventDefault();deleteType(candidateToDelete)}}
-           type="button"
-           className='button-to-delete'
-          
-          >
-            Удалить
-          </button>
-    </div>
+            <button 
+              onClick={handleSubmit}
+              type="submit"
+              className='button-to-delete'
+            >
+              Удалить
+            </button>
+    </form>
   )
 }
 

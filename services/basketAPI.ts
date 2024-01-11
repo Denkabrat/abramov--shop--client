@@ -1,4 +1,7 @@
 import { $authorizationHost } from "./index";
+import { IChangeCount ,IAddToCart} from "@/types/types";
+
+
 
 export const getCart = async () => {
 
@@ -7,19 +10,16 @@ export const getCart = async () => {
     return data;
 }
 
-
-export const addToCart  = async (goodId:string[], size:string | undefined) => {
+export const addToCart  = async ({goodId,size}:IAddToCart) => {
 
     const {data} = await $authorizationHost.post('api/basket/addToCart',{goodId,size});
     
     return data;
-
 }
 
-export const ChangeCountAndDelete  = async (goodId:number,size:string,action:string) => {
+export const ChangeCountAndDelete  = async ({goodId,size,action}:IChangeCount) => {
 
     const {data} = await $authorizationHost.put('api/basket/changeCountAndDelete',{size,goodId,action});
     
     return data;
-    
 }

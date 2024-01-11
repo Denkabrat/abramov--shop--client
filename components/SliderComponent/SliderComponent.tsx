@@ -15,6 +15,17 @@ import "swiper/css/effect-creative";
 
 const SliderComponent = ({img}:{img:[]}) => {
 
+    const renderSlides = () => (
+        img.map((imgUrl: string,id:number) => (
+            <SwiperSlide  key={id}>
+                    {
+                        img ? <div className="main-wrapper-photo"><div className="one-photo"><Image src={`${process.env.NEXT_PUBLIC_API_URL}/`+ imgUrl} width={500} height={500} className="photo" alt="black" /></div></div> : <Icons id="spiner"/>
+                    }
+                
+            </SwiperSlide>
+        ))
+    )
+    
     
     return (
         <Swiper
@@ -34,19 +45,8 @@ const SliderComponent = ({img}:{img:[]}) => {
             pagination={{ clickable: true }}
             loop={true}
             >
-                   
-          
-
-        {
-            img.map((imgUrl: string,id:number) => (
-                 <SwiperSlide  key={id}>
-                        {
-                            img ? <div className="main-wrapper-photo"><div className="one-photo"><Image src={`${process.env.NEXT_PUBLIC_API_URL}/`+ imgUrl} width={500} height={500} className="photo" alt="black" /></div></div> : <Icons id="spiner"/>
-                        }
-                  
-                 </SwiperSlide>
-            ))
-        }
+        {renderSlides()}
+        
           </Swiper>
     );
 };

@@ -5,12 +5,15 @@
     display: flex;
 }
 
+.order-alert{
+  font-size: 22px;
+}
+
 .manage-name-title{
     margin-top: 50px;
     margin-bottom: 30px;
     text-align: center;
     width: 100%;
-    font-family: Regular-font;
 }
 
 .table-container {
@@ -52,7 +55,6 @@ table {
   .select-order-status{
     width: 120px;
     height: 40px;
-    font-family: Regular-font;
     font-size: 18px;
     border: 1px solid rgba(0, 0, 0, 0.3);
     outline: none;
@@ -70,7 +72,6 @@ table {
     border: none;
     transition: .3s all;
     cursor: pointer;
-    font-family: Regular-font;
 
     &:hover {
         background-color: rgba(0, 0, 0, 0.746);

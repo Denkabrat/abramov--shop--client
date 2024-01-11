@@ -1,5 +1,10 @@
 import { $authorizationHost } from "./index";
 
+interface IOrderStatus {
+    orderId:number;
+    newStatus:string;
+}
+
 export const makeOrder = async () => {
 
     const {data} = await $authorizationHost.post('api/payment/payment-order');
@@ -33,7 +38,7 @@ export const getAllOrders  = async () => {
 }
 
 
-export const updateOrderStatus  = async (orderId:number,newStatus:string) => {
+export const updateOrderStatus  = async ({orderId,newStatus}: IOrderStatus) => {
 
     const {data} = await $authorizationHost.put('api/payment/update-order-status',{orderId,newStatus});
     

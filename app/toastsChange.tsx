@@ -16,7 +16,6 @@ export const toastError = (message: string | undefined) =>{
     style:{borderRadius:0}
     });
 }
-
 export const toastSuccess = (message: string | undefined) =>{
   toast.success(message, {
     position: "top-center",
@@ -30,7 +29,6 @@ export const toastSuccess = (message: string | undefined) =>{
     style:{borderRadius:0}
     });
 }
-
 export const toastWarning = (message: string | undefined) =>{
   toast.warn(message, {
     position: "top-center",

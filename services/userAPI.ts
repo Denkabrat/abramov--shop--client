@@ -1,8 +1,18 @@
 import { $authorizationHost,$host } from "./index";
 import jwt_decode from 'jwt-decode';
 
+interface IRegistrationAPI {
+    email:string;
+    password:string;
+    secondPassword:string;
+}
 
-export const registration  = async (email:string,password:string,secondPassword:string) => {
+interface ILoginAPI {
+    email:string;
+    password:string;
+}
+
+export const registration  = async ({email,password,secondPassword}: IRegistrationAPI) => {
 
     const {data} = await $host.post('api/user/registration',{email,password,secondPassword,role:'aedizkddlnrjmixsbo'});
         localStorage.setItem('token', data);
@@ -12,7 +22,7 @@ export const registration  = async (email:string,password:string,secondPassword:
 }
 
 
-export const login  = async (email:string,password:string) => {
+export const login  = async ({email,password}: ILoginAPI) => {
 
     const {data} = await $host.post('api/user/login',{email,password});
     localStorage.setItem('token', data.token);

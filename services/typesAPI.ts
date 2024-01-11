@@ -1,4 +1,11 @@
 import { $host ,$authorizationHost} from ".";
+import { IGetOneType } from "@/types/types";
+
+interface ICreateType {
+    name:string;
+    route:string;
+}
+
 
 export const getTypes  = async () => {
 
@@ -7,17 +14,14 @@ export const getTypes  = async () => {
     return data;
 }
 
-
-
-export const createType = async (name:string, route:string) => {
+export const createType = async ({name, route}: ICreateType) => {
 
     const {data} = await $authorizationHost.post('api/type/createType',{name,route});
     
     return data;
 }
 
-
-export const getOneTypeById  = async (route: string | string[]) => {
+export const getOneTypeById  = async (route: IGetOneType) => {
 
     const {data} = await $host.get('api/type/' + route);
     

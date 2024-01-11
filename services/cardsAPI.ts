@@ -22,8 +22,6 @@ export const deleteOneGoodByName  = async (name: string) => {
     return data;
 }
 
-
-
 export const getOneCardById  = async (id: string | string[]) => {
 
     const {data} = await $host.get('api/good/' + id);

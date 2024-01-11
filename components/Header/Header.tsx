@@ -1,10 +1,11 @@
 'use client';
 //Global
 import { FC } from "react";
-import { useRouter } from "next/navigation";
-import { ACCOUNT_ROUTE,ADMIN_ROUTE,SHOP_ROUTE } from "@/utils/consts";
-import { toastWarning } from "@/app/toastsChange";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { toastWarning } from "@/app/toastsChange";
+import { ACCOUNT_ROUTE,ADMIN_ROUTE,SHOP_NAME,SHOP_ROUTE } from "@/utils/consts";
+
 //Icons
 import { Icons } from "../Icons/Icons";
 import { GrUserAdmin } from "react-icons/gr";
@@ -17,7 +18,6 @@ import { IHeaderProps,IallTypes} from "@/types/types";
 
 
 const Header: FC<IHeaderProps> = ({
-  changeModalStatus,
   setModalSignIn,
   setModalCart,
   setModalMenu,
@@ -27,34 +27,62 @@ const Header: FC<IHeaderProps> = ({
   isAdmin
 }) => {
 
-
 const router = useRouter();
+
+const classNameOfTotalPrice = isActive ? "total-price" : 'hidden';
+const classNameOfAdminPanel = isAdmin && isActive ? "open-admin-panel" : 'hidden';
+
+const changeModalStatusDropDown = () => setModalMenu(true);
+
+const changeModalStatusAccount = () => {
+
+    if(!isActive){
+       setModalSignIn(true);
+       return;
+    }
+
+    router.push(ACCOUNT_ROUTE);
+
+}
+
+const changeModalStatusCart = () => {
+
+  if(!isActive){
+    toastWarning('Чтобы воспользоваться корзиной - авторизуйтесь');
+    return;
+  }
+
+  setModalCart(true)
+}
+
+const renderTypesInHeder = () => (
+    <ul className="categories-catalog">
+        {allTypes.map(({name,id,route}:IallTypes) => (
+          <Link
+            className="Link-header"
+            key={id}
+            href={`/categories/${route}`}
+            >    
+              <li key={id} className="category">
+                  {name}
+              </li>
+          </Link>
+        ))}
+    </ul>
+  )
 
 
   return (
     <header>
       <div className="header-logotype">
         <Link href={SHOP_ROUTE} className="header-shop-name">
-          Abramov
+          {SHOP_NAME}
         </Link>
       </div>
 
       <div className="header-second">
         <div className="header-second-menu">
-          <ul className="categories-catalog">
-            {allTypes.map(({name,id,route}:IallTypes) => (
-              <Link
-                className="Link-header"
-                key={id}
-                href={`/categories/${route}`}
-                >    
-                  <li key={id} className="category">
-                      {name.toUpperCase()}
-                  </li>
-              </Link>
-            ))}
-           
-          </ul>
+         {renderTypesInHeder()}
         </div>
 
         <div className="header-second-other">
@@ -63,32 +91,30 @@ const router = useRouter();
            
             <Link
               href={ADMIN_ROUTE}
-              className={isAdmin && isActive ? "open-admin-panel" : 'hidden'}
-          >
+              className={classNameOfAdminPanel}>
             <GrUserAdmin />
           </Link>
            
          
-           
 
             <button
-              onClick={() => !isActive ? changeModalStatus(true, setModalSignIn) : router.push(ACCOUNT_ROUTE) }
+              onClick={changeModalStatusAccount}
               className="profile-account-icon"
             >
               <Icons id="profile-account" />
             </button>
 
             <button
-              onClick={() => isActive ? changeModalStatus(true, setModalCart) : toastWarning('Чтобы воспользоваться корзиной - авторизуйтесь')}
+              onClick={changeModalStatusCart}
               className="cart-icon"
             >
               <Icons id="cart" />
             </button>
-            <p className={isActive ? "total-price" : 'hidden'}>{totalSum?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, " ")} ₽</p>
+            <p className={classNameOfTotalPrice}>{totalSum} ₽</p>
           </div>
 
           <div className="right-second-other">
-            <button  onClick={() => changeModalStatus(true, setModalMenu)}  className="drop-down-categories">
+            <button  onClick={changeModalStatusDropDown}  className="drop-down-categories">
               <Icons id="dropdown-menu" />
             </button>
           </div>

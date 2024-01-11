@@ -1,7 +1,6 @@
 'use client';
 //Global
 import React,{useEffect, useState} from 'react';
-import { toastError } from '@/app/toastsChange';
 import { getAllOrders } from '@/services/makeOrderAPI';
 import Table from '@/components/OrdersTable/Table';
 //Style
@@ -27,18 +26,26 @@ const getAndManageAllOrders = () => {
     getAllOrders()
       .then(orders => setAllOrders(orders))
       .catch(error => console.error(error));
-  },[])
+  },[]);
 
+  const checkOrders = () => {
+    if(allOrders.length === 0){
+      return(
+        <h1 className='order-alert'>Заказов нет</h1>
+      )
+    }
 
-
-
-  
-
+    return(
+      <Table headers={tableHeaders} data={allOrders} />
+    )
+  }
   
   return (
     <div className="table-container">
         <h1 className='manage-name-title'>Управление заказами</h1>
-        <Table headers={tableHeaders} data={allOrders} />
+          {
+            checkOrders()
+          }
     </div>
   );
 };

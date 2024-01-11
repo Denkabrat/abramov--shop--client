@@ -7,21 +7,32 @@ import { TableProps} from '@/types/types';
 
 const Table: React.FC<TableProps> = ({ headers, data }) => {
 
+  const renderHeaderTable = () => (
+      <tr>
+      {headers.map((header) => (
+        <th key={header}>{header}</th>
+      ))}
+    </tr>
+    )
   
-  return (
-    <table>
-      <thead>
-        <tr>
-          {headers.map((header) => (
-            <th key={header}>{header}</th>
-          ))}
-        </tr>
-      </thead>
+  const renderTableRow = () =>(
       <tbody>
         {data.map((row) => (
           <TableRow key={row.id} rowData={row} />
         ))}
       </tbody>
+    )
+  
+  return (
+    <table>
+      <thead>
+
+       {renderHeaderTable()}
+
+      </thead>
+
+      {renderTableRow()}
+      
     </table>
   );
 };

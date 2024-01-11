@@ -14,7 +14,7 @@ import { Icons } from "@/components/Icons/Icons";
 import SliderComponent from "@/components/SliderComponent/SliderComponent";
 
 //types
-import { ICards } from "@/types/types";
+import { IAddToCart, ICards } from "@/types/types";
 
 //Styles
 import "./PageId.scss";
@@ -24,6 +24,7 @@ export default function Product({params}: {params: {id: string[]}}) {
 
   const [good,setGood] = useState<ICards>({name:'',information:'',price:'',img:[]});
   const [goodSize,setGoodSize] = useState<string | undefined>()
+
   const {isActive,getUserCartFromBackEnd} = useContext(SidebarContext);
 
 
@@ -31,13 +32,12 @@ export default function Product({params}: {params: {id: string[]}}) {
     redirect(SHOP_ROUTE)
   }
 
-
   const {name,price,information,img} = good;
 
-  function addGoodToBasket(goodId:string[],size:string | undefined){
+  function addGoodToBasket({goodId,size}: IAddToCart){
     
       try{
-        addToCart(goodId,size)
+        addToCart({goodId,size})
           .then(res => toastSuccess('Товар добавлен в корзину'))
           .then(res => getUserCartFromBackEnd())
           .catch(error => toastWarning(error.response.data.message.message));
@@ -54,46 +54,59 @@ export default function Product({params}: {params: {id: string[]}}) {
         setGood(good);
       })
       .catch(error => console.log(error));
-
-      
   },[]);
+
+  const renderSizesOnPage = () => (
+    sizesArray.map(({size},index) =>(
+      <button
+        key={index} 
+        className={`size-button-page ${goodSize === size ? 'selected-size' : 'size-button-page'}`}
+        onClick={()=> setGoodSize(size)}>{size}</button>
+    ))
+  )
+
+  const addGoodsToCart = () => {
+
+    if(!isActive){
+      toastWarning('Чтобы воспользоваться корзиной авторизируйтесь')
+      return;
+    }
+
+    addGoodToBasket({goodId:params.id,size:goodSize});
+  }
+
 
   if(!name && !information && !price){
     return <Icons id="spiner" />;
   }
 
 
-     
-  
-  
-
   return (
     <div className="card-single-page-wrapper">
       <h1 className="card-single-page-title">{name}</h1>
-      <div className="card-single-page-content"> 
+        <div className="card-single-page-content"> 
 
         <SliderComponent img={img}/>
 
         <div className="card-content-info">
-            <p className="price">{price?.replace(/\B(?=(\d{3})+(?!\d))/g, " ")} ₽</p>
-          <p className="description">{information}</p>
-          <div className="block-sizes-page">
+            <p className="price">{price} ₽</p>
+            <p className="description">{information}</p>
+
+        <div className="block-sizes-page">
             <p className="choose-sizes-text">Размер:</p>
-            <div className="sizes-page">
+
+        <div className="sizes-page">
               {
-                sizesArray.map(({size},index) =>(
-                  <button
-                    key={index} 
-                    className={`size-button-page ${goodSize === size ? 'selected-size' : 'size-button-page'}`}
-                    onClick={()=> setGoodSize(size)}>{size}</button>
-                ))
+                renderSizesOnPage()
               }
-            </div>
-          </div>
-            <button className="order-to-cart-button" onClick={()=> isActive ? addGoodToBasket(params.id,goodSize) : toastWarning('Чтобы воспользоваться корзиной авторизируйтесь')}>
-                Добавить в корзину
-              </button>
         </div>
+
+        </div>
+            <button className="order-to-cart-button" onClick={addGoodsToCart}>
+                Добавить в корзину
+            </button>
+        </div>
+
       </div>
     </div>
   );

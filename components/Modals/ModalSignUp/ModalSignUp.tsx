@@ -5,7 +5,9 @@ import { registration } from "@/services/userAPI";
 import { toastError,toastSuccess } from "@/app/toastsChange";
 import { useRouter } from "next/navigation";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
-import { ACCOUNT_ROUTE } from "@/utils/consts";
+import { ACCOUNT_ROUTE, emailRegular, passwordRegular } from "@/utils/consts";
+import { stopPropagation } from "@/app/layout";
+
 //Types
 import { IModalSignUpProps,ISignUp } from "@/types/types";
 
@@ -22,7 +24,6 @@ const ModalSignUp: FC<IModalSignUpProps> = ({
   modalSignUp,
   setModalSignUp,
   setModalSignIn,
-  changeModalStatus,
   setIsActive,
 }) => {
   
@@ -30,15 +31,22 @@ const ModalSignUp: FC<IModalSignUpProps> = ({
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
   const [secondPassword,setSecondPassword] = useState('');
+
+  //classNames
+
+  const modalSignInWrapper = modalSignUp ? "modal-sigh-up-wrapper active" : "modal-sigh-up-wrapper";
+
+  //functions
+  const changeModalStatus = () => setModalSignUp(false);
+  const changeModal = () => {setModalSignIn(true); setModalSignUp(false)};
+
+  //formik
   const {register, handleSubmit,formState:{errors}} = useForm<ISignUp>({defaultValues:{}});
 
- 
-
-  //react hook form
   const createAccount:SubmitHandler<ISignUp> = async (data) => {
   
     try {
-      registration(email,password,secondPassword)
+      registration({email,password,secondPassword})
         .then(res => {
             setEmail('');
             setPassword('');
@@ -47,7 +55,7 @@ const ModalSignUp: FC<IModalSignUpProps> = ({
             router.push(ACCOUNT_ROUTE);
             toastSuccess('Вы зарегистрировались');
             toastSuccess('Вы успешно авторизовались');
-            changeModalStatus(false, setModalSignUp);
+            changeModalStatus();
         })
         .catch(
           error => toastError(error.response.data.message.message)
@@ -63,23 +71,13 @@ const ModalSignUp: FC<IModalSignUpProps> = ({
 
 
   return (
-    <div
-      onClick={() => changeModalStatus(false, setModalSignUp)}
-      className={
-        modalSignUp ? "modal-sigh-up-wrapper active" : "modal-sigh-up-wrapper"
-      }
-    >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className="modal-sign-up-content"
-      >
-        <TfiClose
-          className="close-element"
-          onClick={() => changeModalStatus(false, setModalSignUp)}
-        />
+    <div onClick={changeModalStatus} className={modalSignInWrapper}>
+      <div onClick={stopPropagation} className="modal-sign-up-content">
 
+        <TfiClose className="close-element" onClick={changeModalStatus}/>
         <h1 className="signUp-text">Регистрация</h1>
-        <form onSubmit={(e) => {e.preventDefault(); handleSubmit(createAccount,error)}}>
+
+        <form onSubmit={handleSubmit(createAccount,error)}>
 
           
 
@@ -96,7 +94,7 @@ const ModalSignUp: FC<IModalSignUpProps> = ({
                 message:"Пароль слишком длинный"
               },
               pattern: {
-                  value:  /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/,
+                  value:  emailRegular,
                   message: 'Адрес электронной почты должен содержать @ и быть на латинице',
               },
           })}
@@ -119,7 +117,7 @@ const ModalSignUp: FC<IModalSignUpProps> = ({
                 message:"Пароль слишком длинный"
               },
               pattern: {
-                  value:  /^[a-zA-Z0-9]+$/,
+                  value:  passwordRegular,
                   message: 'Пароль должен состоять из английских символов и цифр',
               },
               
@@ -145,7 +143,7 @@ const ModalSignUp: FC<IModalSignUpProps> = ({
                 message:"Пароль слишком длинный"
               },
               pattern: {
-                  value:  /^[a-zA-Z0-9]+$/,
+                  value:  passwordRegular,
                   message: 'Пароль должен состоять из английских символов и цифр',
               },            
           })}
@@ -158,14 +156,12 @@ const ModalSignUp: FC<IModalSignUpProps> = ({
 
 
 
-          <button className="button-to-signUp" onClick={handleSubmit(createAccount,error)} type="button" >
+          <button className="button-to-signUp" onClick={handleSubmit(createAccount,error)} type="submit" >
             Зарегистрироваться
           </button>
+
           <button className="button-redirect-to-signIn"
-            onClick={() => {
-              changeModalStatus(false, setModalSignUp);
-              changeModalStatus(true, setModalSignIn);
-            }}
+            onClick={changeModal}
             type="button"
           >
             войти

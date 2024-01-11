@@ -2,6 +2,8 @@
 import { FC } from "react";
 import { PiCaretDoubleLeftThin } from "react-icons/pi";
 import Link from "next/link";
+import { stopPropagation } from "@/app/layout";
+
 //Types
 import { IModalMenuProps,IallTypes } from "@/types/types";
 
@@ -10,47 +12,48 @@ import "./ModalMenu.scss";
 
 const ModalMenu: FC<IModalMenuProps> = ({
   modalMenu,
-  changeModalStatus,
   setModalMenu,
-  setModalOrder,
   allTypes
 }) => {
 
+const modalMenuClassName = modalMenu ? "modal-menu-wrapper active" : "modal-menu-wrapper";
+const modalContentClassName = modalMenu ? "modal-menu-content active" : "modal-menu-content"
+
+const changeModalStatus = () => setModalMenu(false);
+
+const renderMenuCategories = () => (
+  <div className="menu-categories">
+    {allTypes.map(({name,id,route}:IallTypes) => (
+        <Link
+          className="menu-category"
+          onClick={changeModalStatus}
+          key={id}
+          href={`/categories/${route}`}
+          >
+            {name}
+        </Link>
+     ))}
+  </div>
+)
+
 
   return (
-    <div
-      onClick={() => changeModalStatus(false, setModalMenu)}
-      className={modalMenu ? "modal-menu-wrapper active" : "modal-menu-wrapper"}
-    >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className={
-          modalMenu ? "modal-menu-content active" : "modal-menu-content"
-        }
-      >
+    <div onClick={changeModalStatus} className={modalMenuClassName}>
+      <div onClick={stopPropagation} className={modalContentClassName}>
+
         <div className="menu-header">
-          <button
-            onClick={() => changeModalStatus(false, setModalMenu)}
-            className="close"
-          >
-            <PiCaretDoubleLeftThin />
-            <p>Категории</p>
-          </button>
+            <button
+              onClick={changeModalStatus}
+              className="close">
+              <PiCaretDoubleLeftThin />
+              <p>Категории</p>
+            </button>
         </div>
-        <div className="menu-total-price">
-        </div>
-        <div className="menu-categories">
-          {allTypes.map(({name,id,route}:IallTypes) => (
-            <Link
-              className="menu-category"
-              onClick={() => changeModalStatus(false, setModalMenu)}
-              key={id}
-              href={`/categories/${route}`}
-            >
-              {name.toUpperCase()}
-            </Link>
-          ))}
-        </div>
+
+        {
+          renderMenuCategories()
+        }
+       
       </div>
     </div>
   );

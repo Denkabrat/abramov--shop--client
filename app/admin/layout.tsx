@@ -13,7 +13,10 @@ import { Icons } from "@/components/Icons/Icons";
 
 export default function adminLayout({children}: {children: React.ReactNode}) {
 
+
+
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
+  
   const router = useRouter();
 
   useEffect(() => {
@@ -26,7 +29,7 @@ export default function adminLayout({children}: {children: React.ReactNode}) {
           return;
         }
 
-        if (user && user?.roles  === 'aedizkddlnrjmixsbo') {
+        if (user && user?.roles === process.env.NEXT_PUBLIC_ADMIN_SECRET_KEY) {
           setIsSuccess(true);
         } else {
           router.push(SHOP_ROUTE);

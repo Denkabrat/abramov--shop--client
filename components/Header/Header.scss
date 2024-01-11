@@ -1,9 +1,3 @@
-@font-face {
-  font-family: "Light-handwritten-font";
-  src: local("Light-handwritten-font"),
-    url("../../fonts/ofont.ru_Snell\ Roundhand.ttf") format("truetype");
-}
-
 @mixin flex-default {
   display: flex;
   justify-content: center;
@@ -11,7 +5,6 @@
 }
 
 @mixin button-header {
-  font-family: Regular-font;
   @include flex-default;
   cursor: pointer;
   border: none;
@@ -141,6 +134,7 @@ header {
 
     .category {
       font-size: 20px;
+      text-transform: uppercase;
     }
 
     .Link-header {

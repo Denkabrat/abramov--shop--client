@@ -10,7 +10,6 @@
     margin-bottom: 30px;
     text-align: center;
     width: 100%;
-    font-family: Regular-font;
 }
 
 .create-type-wrapper{
@@ -35,7 +34,6 @@
         outline: none;
         color: black;
         font-weight: 500;
-        font-family: Regular-font;
     }
 }
 
@@ -49,7 +47,6 @@
     margin-top: 30px;
     transition: .3s all;
     cursor: pointer;
-    font-family: Regular-font;
 
     &:hover {
         background-color: rgba(0, 0, 0, 0.746);

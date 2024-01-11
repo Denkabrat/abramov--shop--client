@@ -3,7 +3,6 @@
   justify-content: center;
   align-items: center;
 }
-
 .modal-background {
   z-index: 999;
   @include flexCenter;
@@ -35,7 +34,6 @@
 
 .signIn-text {
   text-align: center;
-  font-family: Regular-font;
 }
 
 .close-element {
@@ -76,7 +74,6 @@
       outline: none;
       color: black;
       font-weight: 500;
-      font-family: Regular-font;
     }
 
     input[type="password"] {
@@ -125,7 +122,6 @@
     margin: 30px 0 20px 0;
     text-transform: uppercase;
     cursor: pointer;
-    font-family: Regular-font;
   }
 
 .button-to-signIn {
@@ -142,7 +138,6 @@
     text-transform: uppercase;
     border: none;
     width: 165px;
-    font-family: Regular-font;
 
     svg {
       margin-left: 10px;

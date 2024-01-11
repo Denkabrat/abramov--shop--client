@@ -1,10 +1,11 @@
 'use client';
 //Global
-import React,{useEffect, useState} from 'react';
+import React,{useEffect, useState,FormEvent,MouseEvent} from 'react';
 import { toastError, toastSuccess } from '@/app/toastsChange';
 import { getTypes } from '@/services/typesAPI';
 import { getCardsByTypeId } from '@/services/cardsAPI';
 import { deleteOneGoodByName } from '@/services/cardsAPI';
+
 //Types
 
 //Style
@@ -52,15 +53,33 @@ const deleteGoodPage = () => {
       })
       .catch(error => toastError(error.response.data.message.message));
   }
-
+  const renderAllTypes = () => (
+    allTypes?.map(({name,id},index)=>(
+      <option key={index} value={id}>{name}</option>
+    ))
+  )
+  const renderAllGoods = () => {
+    if(allGoods?.length > 0){
+      return(
+        allGoods.map(({name},index)=>(
+          <option key={index} value={name}>{name}</option>
+        )) 
+      )
+    }
+  }
+  const handleSubmit = (event: FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    deleteGood(goodToDelete);
+  };
 
   return (
-    <div className='delete-good-wrapper'>
+    <form onSubmit={handleSubmit} className='delete-good-wrapper'>
         <h1 className='manage-name-title'>Удалить товар</h1>
             <label className="delete-good-blocks">
                 <p className='good-name'>
                   Выберите тип
                 </p>
+
                 <select 
                   className='select-wrapper' 
                   onChange={(e) => setSelectedType(e.target.value)}
@@ -68,9 +87,7 @@ const deleteGoodPage = () => {
                   >
                   <option value="0">Выберите...</option>
                   {
-                    allTypes?.map(({name,id},index)=>(
-                      <option key={index} value={id}>{name}</option>
-                    ))
+                    renderAllTypes()
                   }
 
                 </select>
@@ -81,29 +98,28 @@ const deleteGoodPage = () => {
                 <p className='good-name'>
                   Выберите товар
                 </p>
+
                 <select 
                   className='select-wrapper' 
                   onChange={(e) => setGoodToDelete(e.target.value)}>
 
                   <option value="">Выберите...</option>
                   {
-                  allGoods?.length > 0 && allGoods.map(({name},index)=>(
-                      <option key={index} value={name}>{name}</option>
-                    ))
+                    renderAllGoods()
                   }
 
                 </select>
              
             </label>
 
-          <button 
-           type="button"
-           className='button-to-delete'
-           onClick={(e)=> {e.preventDefault();deleteGood(goodToDelete)}}
-          >
-            Удалить
-          </button>
-    </div>
+            <button 
+              type="submit"
+              className='button-to-delete'
+              onClick={handleSubmit}
+            >
+              Удалить
+            </button>
+    </form>
   )
 }
 

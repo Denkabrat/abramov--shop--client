@@ -14,7 +14,6 @@ type ChangeStatusFunc = (
 ) => void;
 
 export interface IHeaderProps {
-  changeModalStatus: ChangeStatusFunc;
   setModalSignIn: FunctionDispatch<boolean>;
   setModalCart: FunctionDispatch<boolean>;
   setModalMenu: FunctionDispatch<boolean>;
@@ -26,7 +25,6 @@ export interface IHeaderProps {
 
 export interface IModalSignInProps {
   modal: boolean;
-  changeModalStatus: ChangeStatusFunc;
   setModalSignIn: FunctionDispatch<boolean>;
   setModalSignUp: FunctionDispatch<boolean>;
   setIsActive:FunctionDispatch<boolean>;
@@ -35,22 +33,19 @@ export interface IModalSignInProps {
 
 export interface IModalSignUpProps {
   modalSignUp: boolean;
-  changeModalStatus: ChangeStatusFunc;
   setModalSignUp: FunctionDispatch<boolean>;
   setModalSignIn: FunctionDispatch<boolean>;
   setIsActive:FunctionDispatch<boolean>;
 }
 
 export interface IModalRenderOrderProps {
-  changeModalStatus: ChangeStatusFunc;
-  setModalRenderOrdres: FunctionDispatch<boolean>;
-  modalRenderOrdres:boolean;
+  setModalRenderOrders: FunctionDispatch<boolean>;
+  modalRenderOrders:boolean;
   userOrder:Order[];
 }
 
 export interface IModalCartProps {
   modal: boolean;
-  changeModalStatus: ChangeStatusFunc;
   setModalCart: FunctionDispatch<boolean>;
   totalSum:number;
   goodsCart:[];
@@ -79,9 +74,7 @@ export interface IModalOrderProps {
 
 export interface IModalMenuProps {
   modalMenu: boolean;
-  changeModalStatus: ChangeStatusFunc;
   setModalMenu: FunctionDispatch<boolean>;
-  setModalOrder: FunctionDispatch<boolean>;
   allTypes:[];
 }
 
@@ -101,8 +94,8 @@ export interface IContext{
   setIsActive: FunctionDispatch<boolean>;
   allTypes:[];
   getUserCartFromBackEnd:() => void;
-  setModalRenderOrdres: FunctionDispatch<boolean>;
-  modalRenderOrdres:boolean;
+  setModalRenderOrders: FunctionDispatch<boolean>;
+  modalRenderOrders:boolean;
   setIsAdmin:FunctionDispatch<boolean>;
 
 }
@@ -228,4 +221,19 @@ export interface TableProps {
 export interface TableRowProps {
   rowData: RowData;
   updateStatus?: (orderId: number, newStatus: string) => void;
+}
+
+export interface IChangeCount{
+  goodId:number;
+  size:string;
+  action:string;
+}
+
+export interface IGetOneType {
+  route: string | string[];
+}
+
+export interface IAddToCart {
+  goodId:string[];
+  size:string | undefined;
 }

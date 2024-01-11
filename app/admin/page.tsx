@@ -17,23 +17,28 @@ export const metadata: Metadata = {
 
 const AdminPage = () => {
 
+  const renderAdminRoutes = () => (
+    adminRoutesArray.map(({route,name},index) =>(
+      <Link 
+        className="buttons-routes-to-manage"
+        key={index}
+        href={`/admin/${route}`}
+        >
+        {name}
+    </Link>
+  ))
+  )
 
   return (
     <div className="admin-page-wrapper">
       <h1 className="admin-page-title">Админ-панель</h1>
+
         <div className="admin-page-content">
           {
-                adminRoutesArray.map(({route,name},index) =>(
-                    <Link 
-                      className="buttons-routes-to-manage"
-                      key={index}
-                      href={`/admin/${route}`}
-                      >
-                      {name}
-                  </Link>
-                ))
-              }
-      </div>
+             renderAdminRoutes()
+          }
+        </div>
+
     </div>
   );
 };

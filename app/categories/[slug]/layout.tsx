@@ -8,10 +8,6 @@ import { useState,useEffect } from "react";
 import { getCardsByTypeId } from "@/services/cardsAPI";
 import { AxiosError } from "axios";
 
-
-
-
-
 export default function ProductLayout({children}: {children: React.ReactNode;}) {
 
 const [isSuccess,setIsSucces] = useState(false);
@@ -62,9 +58,6 @@ async function getAllCards() {
   }
 
   return (
-
         <div>{children}</div>
-
-    
   );
 }

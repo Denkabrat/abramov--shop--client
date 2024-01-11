@@ -2,7 +2,7 @@
 import { Metadata } from "next";
 import MainPageBanner from "@/components/MainPage/MainPageBanner";
 //Styles
-import "./homepage.scss";
+import "./globals.scss";
 
 
 export const metadata: Metadata = {

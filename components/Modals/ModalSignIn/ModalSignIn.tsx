@@ -4,9 +4,10 @@
 import { FC ,useState} from "react";
 import { login } from "@/services/userAPI";
 import { useRouter } from "next/navigation";
-import { ACCOUNT_ROUTE } from "@/utils/consts";
+import { ACCOUNT_ROUTE ,emailRegular,passwordRegular} from "@/utils/consts";
 import { toastError,toastSuccess } from "@/app/toastsChange";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
+import { stopPropagation } from "@/app/layout";
 //Types
 import { IModalSignInProps,ISignIn } from "@/types/types";
 
@@ -18,32 +19,40 @@ import { TfiClose } from "react-icons/tfi";
 
 
 const ModalSignIn: FC<IModalSignInProps> = ({
-  changeModalStatus,
   modal,
   setModalSignIn,
   setModalSignUp,
   setIsActive
 }) => {
 
+  
+
   const [password,setPassword] = useState('');
   const [email,setEmail] = useState('');
   const router = useRouter();
 
- 
-  const {register, handleSubmit,formState:{errors}} = useForm<ISignIn>({defaultValues:{}});
+  //classNames | static
+  const modalSignInBackgroundClassName = modal ? "modal-background active" : "modal-background";
 
-  //react hook form
+  //functions
+  const changeModalStatus = () => setModalSignIn(false);
+  const changeModal = () => {setModalSignIn(false); setModalSignUp(true)};
 
-  const signInAccount:SubmitHandler<ISignIn> = async (data) => {
+  //formik
+  const {register,handleSubmit,formState:{errors}} = useForm<ISignIn>({defaultValues:{}});
+
   
+  
+  const signInAccount: SubmitHandler<ISignIn> = async (data) => {
+
     try {
-      login(email,password)
+      login({email,password})
           .then(res =>{
               setEmail('');
               setPassword('');
               setIsActive(true);
               router.push(ACCOUNT_ROUTE);
-              changeModalStatus(false, setModalSignIn);
+              changeModalStatus();
               toastSuccess('Вы успешно авторизовались');
           })
           .catch(
@@ -53,42 +62,40 @@ const ModalSignIn: FC<IModalSignInProps> = ({
         console.log(error)
     } 
 }
-
   const error: SubmitErrorHandler<ISignIn> = data => {
     errors && Object.keys(data).forEach((key) => toastError(data[key as keyof typeof data]?.message));
   }
  
   return (
     
-    <div
-      className={modal ? "modal-background active" : "modal-background"}
-      onClick={() => changeModalStatus(false, setModalSignIn)}
-    >
+    <div className={modalSignInBackgroundClassName} onClick={changeModalStatus}>
+      <div className="modal-content" onClick={stopPropagation}>
 
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <TfiClose
           className="close-element"
-          onClick={() => changeModalStatus(false, setModalSignIn)}
+          onClick={changeModalStatus}
         />
 
         <h1 className="signIn-text">Войти</h1>
 
 
 
-        <form onSubmit={(e) => {e.preventDefault(); handleSubmit(signInAccount ,error);}}>
+        <form onSubmit={handleSubmit(signInAccount ,error)}>
+
           <div className="input-block">
             <p className="input-email">эл.почта</p>
             <input 
             {...register('email', {
               pattern: {
-                  value:  /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/,
+                  value:  emailRegular,
                   message: 'Адрес электронной почты должен содержать @ и быть на латинице',
               },
-          })}
+              })}
               type="text" 
               value={email}
               onChange={(e)=> setEmail(e.target.value)} />
           </div>
+          
           <div className="input-block">
             <p className="input-password">пароль</p>
             <input
@@ -102,7 +109,7 @@ const ModalSignIn: FC<IModalSignInProps> = ({
                 message:"Пароль слишком длинный"
               },
               pattern: {
-                  value:  /^[a-zA-Z0-9]+$/,
+                  value:  passwordRegular,
                   message: 'Пароль должен состоять из английских символов и цифр',
               },
               
@@ -113,20 +120,17 @@ const ModalSignIn: FC<IModalSignInProps> = ({
               onChange={(e)=> setPassword(e.target.value)}
             />
           </div>
-          {/* Добавить в некст обновлении */}
-          {/* <p className="forgot-password">Забыли пароль ?</p> */}
-          <button className="button-to-signIn" onClick={handleSubmit(signInAccount,error)} type="button">
-            <p className="button-title">войти</p>
+
+          <button className="button-to-signIn" onClick={handleSubmit(signInAccount ,error)} type="submit">
+            войти
           </button>
+
           <button className="button-redirect-to-registration"
-            onClick={() => {
-              changeModalStatus(false, setModalSignIn);
-              changeModalStatus(true, setModalSignUp);
-            }}
-            type="button"
-          >
+            onClick={changeModal}
+            type="button">
             быстрая регистрация
           </button>
+          
         </form>
       </div>
     </div>

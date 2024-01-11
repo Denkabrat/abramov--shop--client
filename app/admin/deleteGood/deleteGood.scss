@@ -10,7 +10,6 @@
     margin-bottom: 30px;
     text-align: center;
     width: 100%;
-    font-family: Regular-font;
 }
 
 .delete-good-wrapper{
@@ -39,7 +38,6 @@
     margin-top: 30px;
     transition: .3s all;
     cursor: pointer;
-    font-family: Regular-font;
 
     &:hover {
         background-color: rgba(0, 0, 0, 0.746);
@@ -49,7 +47,6 @@
 .select-wrapper{
     width: 250px;
     height: 40px;
-    font-family: Regular-font;
     font-size: 18px;
     border: 1px solid rgba(0, 0, 0, 0.3);
     outline: none;

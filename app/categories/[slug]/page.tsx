@@ -8,7 +8,7 @@ import { getCardsByTypeId } from "@/services/cardsAPI";
 import { getTypes,getOneTypeById } from "@/services/typesAPI";
 
 //types
-import {  IPageCardProps } from "@/types/types";
+import {  IPageCardProps,IGetOneType } from "@/types/types";
 
 
 
@@ -25,7 +25,7 @@ export async function generateStaticParams() {
   }
 }
 
-export async function generateMetadata({params}: {params: { slug: string }}){
+export async function generateMetadata({params}: {params: { slug: IGetOneType }}){
 
   try {
     const {name} = await getOneTypeById(params.slug);
@@ -43,16 +43,29 @@ export async function generateMetadata({params}: {params: { slug: string }}){
 
 
 
-export default async function ProductPage({params}: {params: { slug: string }}) {
+export default async function ProductPage({params}: {params: { slug: IGetOneType }}) {
 
-  const oneType = await getOneTypeById(params.slug);
+    const oneType = await getOneTypeById(params.slug);
 
-    if(oneType === null){
-      redirect(SHOP_ROUTE)
-    }
+      if(oneType === null){
+        redirect(SHOP_ROUTE)
+      }
 
-  const {name,id} = oneType;
-  const {rows} = await getCardsByTypeId(id);
+    const {name,id} = oneType;
+    const {rows} = await getCardsByTypeId(id);
+
+    const rednerCardsonPage = () => (
+      rows.map(({name,price,img,id}: IPageCardProps) => (
+        <Link key={id} className="card-product" href={`/categories/${params.slug}/${id}`}>
+              <PageCard
+                id={`${id}`}
+                name={name}
+                price={price}
+                img={`${process.env.NEXT_PUBLIC_API_URL}/` + img[0]}
+              />
+        </Link>
+    ))
+    )
 
  
   return (
@@ -62,16 +75,7 @@ export default async function ProductPage({params}: {params: { slug: string }}) 
         
        <div className="category-products-grid">
           {
-           rows.map(({name,price,img,id}: IPageCardProps) => (
-                <Link key={id} className="card-product" href={`/categories/${params.slug}/${id}`}>
-                      <PageCard
-                        id={`${id}`}
-                        name={name}
-                        price={price?.replace(/\B(?=(\d{3})+(?!\d))/g, " ")}
-                        img={`${process.env.NEXT_PUBLIC_API_URL}/` + img[0]}
-                      />
-                </Link>
-            ))
+           rednerCardsonPage()
           }
       </div>
     </section>

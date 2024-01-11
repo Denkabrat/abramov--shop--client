@@ -5,7 +5,7 @@ import { ChangeCountAndDelete } from "@/services/basketAPI";
 import { toastWarning } from "@/app/toastsChange";
 
 //Types
-import { IBasketCardProps } from "@/types/types";
+import { IBasketCardProps ,IChangeCount} from "@/types/types";
 
 //Styles
 import "./BasketCards.scss";
@@ -13,18 +13,23 @@ import "./BasketCards.scss";
 
   const BasketCards: FC<IBasketCardProps> = ({counter,id,name,price,img,size,getUserCartFromBackEnd,goodId}) => {
 
-    let numericPrice = parseFloat(price.replace(/\s/g, ""));
-    let result = numericPrice * counter;
+  let numericPrice = parseFloat(price.replace(/\s/g, ""));
+  let resultPrice = (numericPrice * counter).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 
-  const changeGoodCountAndDelete = (goodId:number,size:string,action:string) => {
+  const changeGoodCountAndDelete = ({goodId,size,action}: IChangeCount) => {
     try {
-      ChangeCountAndDelete(goodId,size,action)
+      ChangeCountAndDelete({goodId,size,action})
       .then(() => getUserCartFromBackEnd())
       .catch(error => toastWarning(error.response.data.message.message));
     } catch (error) {
         console.error(error);
     };
  };
+
+ 
+ const incrementClick = () => changeGoodCountAndDelete({goodId,size,action: 'inc'});
+ const decrementClick = () => changeGoodCountAndDelete({goodId,size,action: 'dec'});
+
 
  
   return (
@@ -49,21 +54,21 @@ import "./BasketCards.scss";
           <div className="block-counter">
             <button
             className="button-action"
-              onClick={() => changeGoodCountAndDelete(goodId,size,'dec')}
+              onClick={decrementClick}
             >
               -
             </button>
             <span>{counter}</span>
             <button
             className="button-action"
-            onClick={() => changeGoodCountAndDelete(goodId,size,'inc')}
+            onClick={incrementClick}
              >+</button>
           </div>
         </div>
         <div className="item-price">
           <p>
             <span>Цена: </span>
-            {result.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")}  ₽
+            {resultPrice}  ₽
           </p>
         </div>
       </div>
