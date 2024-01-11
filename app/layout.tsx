@@ -117,7 +117,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
   
         if(user){
 
-          if(user?.roles === 'aedizkddlnrjmixsbo'){
+          if(user?.roles === process.env.NEXT_PUBLIC_ADMIN_SECRET_KEY){
             setIsAdmin(true);
           }
         }

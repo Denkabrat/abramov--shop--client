@@ -60,7 +60,7 @@ export default async function ProductPage({params}: {params: { slug: IGetOneType
               <PageCard
                 id={`${id}`}
                 name={name}
-                price={price}
+                price={price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, " ")}
                 img={`${process.env.NEXT_PUBLIC_API_URL}/` + img[0]}
               />
         </Link>

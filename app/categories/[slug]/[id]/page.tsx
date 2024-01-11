@@ -34,6 +34,8 @@ export default function Product({params}: {params: {id: string[]}}) {
 
   const {name,price,information,img} = good;
 
+  const goodPrice = price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+
   function addGoodToBasket({goodId,size}: IAddToCart){
     
       try{
@@ -89,7 +91,7 @@ export default function Product({params}: {params: {id: string[]}}) {
         <SliderComponent img={img}/>
 
         <div className="card-content-info">
-            <p className="price">{price} ₽</p>
+            <p className="price">{goodPrice} ₽</p>
             <p className="description">{information}</p>
 
         <div className="block-sizes-page">
