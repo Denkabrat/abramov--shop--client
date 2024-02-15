@@ -43,30 +43,34 @@ export async function generateMetadata({params}: {params: { slug: IGetOneType }}
 
 
 
+function generateMemoizedCardList(rows: IPageCardProps[], paramsSlug: IGetOneType): JSX.Element[] {
+
+  
+  return rows.map(({ name, price, img, id }) => (
+          
+      <Link className="card-product"  key={id} href={`/categories/${paramsSlug}/${id}`}>
+        <PageCard
+          id={`${id}`}
+          name={name}
+          price={price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, " ")}
+          img={`${process.env.NEXT_PUBLIC_API_URL}/` + img[0]}
+        />
+    </Link>
+  ));
+}
+
+
 export default async function ProductPage({params}: {params: { slug: IGetOneType }}) {
 
     const oneType = await getOneTypeById(params.slug);
 
-      if(oneType === null){
-        redirect(SHOP_ROUTE)
-      }
+    if(oneType === null) redirect(SHOP_ROUTE)
+      
 
     const {name,id} = oneType;
     const {rows} = await getCardsByTypeId(id);
 
-    const rednerCardsonPage = () => (
-      rows.map(({name,price,img,id}: IPageCardProps) => (
-        <Link key={id} className="card-product" href={`/categories/${params.slug}/${id}`}>
-              <PageCard
-                id={`${id}`}
-                name={name}
-                price={price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, " ")}
-                img={`${process.env.NEXT_PUBLIC_API_URL}/` + img[0]}
-              />
-        </Link>
-    ))
-    )
-
+    const rednerCardsonPage = generateMemoizedCardList(rows, params.slug);
  
   return (
     <section className="category-product-wrapper">
@@ -74,9 +78,7 @@ export default async function ProductPage({params}: {params: { slug: IGetOneType
       <h1 style={{ margin: 40 }}>{name}</h1>
         
        <div className="category-products-grid">
-          {
-           rednerCardsonPage()
-          }
+          {rednerCardsonPage}
       </div>
     </section>
   );

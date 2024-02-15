@@ -1,5 +1,5 @@
 //Global
-import { FC } from "react";
+import { FC ,useMemo} from "react";
 import { PiCaretDoubleLeftThin } from "react-icons/pi";
 import Link from "next/link";
 import { stopPropagation } from "@/app/layout";
@@ -21,20 +21,23 @@ const modalContentClassName = modalMenu ? "modal-menu-content active" : "modal-m
 
 const changeModalStatus = () => setModalMenu(false);
 
-const renderMenuCategories = () => (
-  <div className="menu-categories">
-    {allTypes.map(({name,id,route}:IallTypes) => (
-        <Link
-          className="menu-category"
-          onClick={changeModalStatus}
-          key={id}
-          href={`/categories/${route}`}
-          >
-            {name}
-        </Link>
-     ))}
-  </div>
-)
+const renderMenuCategories = useMemo(()=>{
+  return () => (
+    <div className="menu-categories">
+      {allTypes.map(({name,id,route}:IallTypes) => (
+          <Link
+            className="menu-category"
+            onClick={changeModalStatus}
+            key={id}
+            href={`/categories/${route}`}
+            >
+              {name}
+          </Link>
+       ))}
+    </div>
+  )
+},[allTypes])
+
 
 
   return (

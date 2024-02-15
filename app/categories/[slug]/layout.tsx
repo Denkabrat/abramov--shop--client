@@ -7,6 +7,7 @@ import { Icons } from "@/components/Icons/Icons";
 import { useState,useEffect } from "react";
 import { getCardsByTypeId } from "@/services/cardsAPI";
 import { AxiosError } from "axios";
+import { toastError } from "@/app/toastsChange";
 
 export default function ProductLayout({children}: {children: React.ReactNode;}) {
 
@@ -42,7 +43,7 @@ async function getAllCards() {
           const {goods,error} = await getAllCards();
 
           if(error){
-              console.log(error);
+              toastError('Ошибка при получении товара')
               return;
           }
          

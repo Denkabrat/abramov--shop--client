@@ -17,7 +17,7 @@ const TableRow: React.FC<TableRowProps> = ({ rowData }) => {
 
   const handleStatusChange = (orderId:number,newStatus:string) => {
      updateOrderStatus({orderId,newStatus})
-      .then(()=> toastSuccess(`Статус заказа ${orderId} был успешно изменен !`))
+      .then(()=> toastSuccess(`Статус заказа №${orderId} был успешно изменен !`))
       .catch(error => toastError(error.response.data.message))
   };
 

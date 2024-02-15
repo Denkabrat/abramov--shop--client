@@ -1,7 +1,7 @@
 //GLobal
 'use client'
 import Image from "next/image";
-import { useState } from "react";
+import { useState,useMemo } from "react";
 //Types
 import { OrderDetail, Order, IModalRenderOrderProps } from "@/types/types";
 
@@ -42,49 +42,53 @@ const OrdersCards = ({ userOrder }: IModalRenderOrderProps) => {
     }
   };
 
-  const renderOrderDetails = (order: OrderDetail[]) => (
-    order.map(({ quantity, id, name, image, size }: OrderDetail) => (
-      <div key={id} className="main-order-card">
-        <Image
-          className="order-image"
-          width={75}
-          height={75}
-          src={`${process.env.NEXT_PUBLIC_API_URL}/` + image[0]}
-          alt="clothes"
-        />
-        <div className="main-order-left-descripton">
-          <p className="main-product-name">{name}</p>
-          <p className="main-product-size">Размер: <span className="main-product-chosen">{size}</span></p>
-          <p className="main-product-quantity">Кол-во: <span className="main-product-chosen">{quantity}</span></p>
-        </div>
-      </div>
-    ))
-  );
+  const renderOrderDetails = useMemo(() => {
+    return (order:OrderDetail[])=>(
+        order.map(({ quantity, id, name, image, size }: OrderDetail) => (
+          <div key={id} className="main-order-card">
+            <Image
+              className="order-image"
+              width={75}
+              height={75}
+              src={`${process.env.NEXT_PUBLIC_API_URL}/` + image[0]}
+              alt="clothes"
+            />
+            <div className="main-order-left-descripton">
+              <p className="main-product-name">{name}</p>
+              <p className="main-product-size">Размер: <span className="main-product-chosen">{size}</span></p>
+              <p className="main-product-quantity">Кол-во: <span className="main-product-chosen">{quantity}</span></p>
+            </div>
+          </div>
+        ))
+    )
+  },[])
+  
 
-  const renderOrderFooter = (information:IInformation, date: string, price: number, status: string) => (
-
-    <footer className="footer-order-block">
-      <div className="footer-order-top">
-        <div className="order-left-information">
-          <p className="footer-order-information">Имя: <span className="footer-order-chosen">{information.name}</span></p>
-          <p className="footer-order-information">Фамилия: <span className="footer-order-chosen">{information.surname}</span></p>
-          <p className="footer-order-information">Отчество: <span className="footer-order-status-chosen">{information.patronymic}</span></p>
-          <p className="footer-order-information">Телефон: <span className="footer-order-status-chosen">{information.phone}</span></p>
+  const renderOrderFooter = useMemo(()=> {
+    return (information:IInformation, date: string, price: number, status: string) => (
+      <footer className="footer-order-block">
+        <div className="footer-order-top">
+          <div className="order-left-information">
+            <p className="footer-order-information">Имя: <span className="footer-order-chosen">{information.name}</span></p>
+            <p className="footer-order-information">Фамилия: <span className="footer-order-chosen">{information.surname}</span></p>
+            <p className="footer-order-information">Отчество: <span className="footer-order-status-chosen">{information.patronymic}</span></p>
+            <p className="footer-order-information">Телефон: <span className="footer-order-status-chosen">{information.phone}</span></p>
+          </div>
+          <div className="order-right-information">
+            <p className="footer-order-information">Город: <span className="footer-order-chosen">{information.city}</span></p>
+            <p className="footer-order-information">Улица: <span className="footer-order-chosen">{information.street}</span></p>
+            <p className="footer-order-information">Область: <span className="footer-order-status-chosen">{information.region}</span></p>
+            <p className="footer-order-information">Индекс: <span className="footer-order-status-chosen">{information.index}</span></p>
+          </div>
         </div>
-        <div className="order-right-information">
-          <p className="footer-order-information">Город: <span className="footer-order-chosen">{information.city}</span></p>
-          <p className="footer-order-information">Улица: <span className="footer-order-chosen">{information.street}</span></p>
-          <p className="footer-order-information">Область: <span className="footer-order-status-chosen">{information.region}</span></p>
-          <p className="footer-order-information">Индекс: <span className="footer-order-status-chosen">{information.index}</span></p>
+        <div className="order-bottom-information">
+          <p className="footer-order-information">Дата: <span className="footer-order-chosen">{date.split('T')[0]}</span></p>
+          <p className="footer-order-information">Сумма: <span className="footer-order-chosen">{price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} ₽</span></p>
+          <p className="footer-order-information">Статус: <span className={getStatusColorClassName(status)}>{status}</span></p>
         </div>
-      </div>
-      <div className="order-bottom-information">
-        <p className="footer-order-information">Дата: <span className="footer-order-chosen">{date.split('T')[0]}</span></p>
-        <p className="footer-order-information">Сумма: <span className="footer-order-chosen">{price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} ₽</span></p>
-        <p className="footer-order-information">Статус: <span className={getStatusColorClassName(status)}>{status}</span></p>
-      </div>
-    </footer>
-  );
+      </footer>
+    )
+  },[]);
 
   return (
     <nav className="main-order-block">

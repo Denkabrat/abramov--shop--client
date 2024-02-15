@@ -1,6 +1,6 @@
 'use client'
 //Global
-import { FC } from "react";
+import { FC ,useMemo} from "react";
 import { BasketCards } from "../../BasketCards/BasketCards";
 import { getAddress, getInformation } from "@/services/userInfoAPI";
 import { toastWarning } from "@/app/toastsChange";
@@ -66,7 +66,8 @@ const ModalCart: FC<IModalCartProps> = ({modal,setModalCart,goodsCart,totalSum,g
         .catch(error => console.error(error));
     }
 
-  const getAllCardsInBasket = () => (
+  const getAllCardsInBasket = useMemo(()=>{
+    return () => (
       goodsCart.map(({id,count,img,name,price,size,goodId},index:number)=>(
           <BasketCards
             key={index}
@@ -81,6 +82,7 @@ const ModalCart: FC<IModalCartProps> = ({modal,setModalCart,goodsCart,totalSum,g
         />
       ))
   )
+  },[goodsCart])
 
   const checkGoodsInBasket = () => {
 
@@ -126,13 +128,8 @@ const ModalCart: FC<IModalCartProps> = ({modal,setModalCart,goodsCart,totalSum,g
         </div>
 
         <div className="purchases-block">
-            {
-              getAllCardsInBasket()
-            }
-            
-            {
-              checkGoodsInBasket()
-            }
+            {getAllCardsInBasket()}
+            {checkGoodsInBasket()}
         </div>
 
       </div>

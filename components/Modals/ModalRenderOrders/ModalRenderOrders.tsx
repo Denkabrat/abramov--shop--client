@@ -1,5 +1,6 @@
 //Global
-import { FC } from "react";
+'use client'
+import { FC ,useMemo} from "react";
 import { OrdersCards } from "@/components/OrdersCards/OrdersCards";
 import { stopPropagation } from "@/app/layout";
 
@@ -26,25 +27,25 @@ const orderContentClassName = modalRenderOrders ? "modal-render-order-content ac
 
 const changeModalStatus = () => setModalRenderOrders(false);
 
-const renderOrders = () => {
+const renderOrders = useMemo(()=> {
 
   if(userOrder.length === 0){
-    return(
+    return () => (
       <div className="empty-orders-block">
         <p className="empty-orders-message">Заказы отсутствуют</p>
         <p className="empty-ordes-back-to-buy">Оформи заказ прямо сейчас</p>
-      </div>
-    )
+      </div>)
   }
   
-  return(
+  return ()=>(
       <OrdersCards 
        modalRenderOrders={modalRenderOrders}
        setModalRenderOrders={setModalRenderOrders}
        userOrder={userOrder}
      />
-  )
-}
+  ) 
+  
+},[userOrder])
 
   return (
     <div onClick={changeModalStatus} className={orderWrapperClassName}>
